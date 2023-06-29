@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/masyarakat/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,9 +12,32 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
+  bool _passwordVisible = false;
+  bool _daftarVisible = false;
+
+  String noHp = '';
+  String password = '';
+
+  var loginSebagai;
+  List<String> sebagai = [
+    'Admin Bank Sampah',
+    'Admin Pos Sampah',
+    'Masyarakat',
+  ];
+
+  void _handleDaftar() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => MasyarakatRegisterPage()),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEBF4F3),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -44,8 +69,67 @@ class _LoginPageState extends State<LoginPage> {
               Form(
                 key: _formKey,
                 child: Column(children: [
-                  TextFormField(
+                  DropdownButtonFormField<String>(
                     decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.only(
+                        top: 13.0,
+                        bottom: 12.0,
+                        left: 18.0,
+                        right: 18.0,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          borderSide: BorderSide(color: Color(0xFF008305))),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        borderSide: BorderSide(color: Color(0xFF008305)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        borderSide: BorderSide(color: Color(0xFF008305)),
+                      ),
+                    ),
+                    value: loginSebagai,
+                    hint: Text('Pilih login sebagai'),
+                    onChanged: (value) {
+                      setState(() {
+                        loginSebagai = value;
+                        if (value == 'Masyarakat') {
+                          _daftarVisible = true;
+                        } else {
+                          _daftarVisible = false;
+                        }
+                      });
+                    },
+                    items:
+                        sebagai.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    style: TextStyle(
+                      color: Color(0xFF008305),
+                      fontFamily: 'Poppins',
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 33.0,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      setState(() {
+                        noHp = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
                       labelText: 'No.Hp',
                       labelStyle: TextStyle(
                           color: Color(0xFF000000),
@@ -60,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                         top: 13.0,
                         bottom: 12.0,
                         left: 18.0,
+                        right: 18.0,
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(6.0)),
@@ -78,46 +163,119 @@ class _LoginPageState extends State<LoginPage> {
                       color: Color(0xFF000000),
                       fontFamily: 'Poppins',
                     ),
+                  ),
+                  SizedBox(
+                    height: 33.0,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
+                    obscureText: _passwordVisible,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Kata Sandi',
+                      labelStyle: TextStyle(
+                          color: Color(0xFF000000),
+                          fontSize: 14.0,
+                          fontFamily: 'Poppins'),
+                      hintText: '********',
+                      hintStyle: TextStyle(
+                          color: Color(0xFF000000).withOpacity(0.3),
+                          fontSize: 14.0,
+                          fontFamily: 'Poppins'),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.grey,
+                            ),
+                          )),
+                      contentPadding: EdgeInsets.only(
+                        top: 13.0,
+                        bottom: 12.0,
+                        left: 18.0,
+                        right: 18.0,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          borderSide: BorderSide(color: Color(0xFF008305))),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        borderSide: BorderSide(color: Color(0xFF008305)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        borderSide: BorderSide(color: Color(0xFF008305)),
+                      ),
+                    ),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color(0xFF000000),
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 159.0,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 53.0,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        elevation: 6.0,
+                        backgroundColor: Color(0xFF008305),
+                      ),
+                      child: const Text(
+                        'Masuk',
+                        style: TextStyle(
+                          color: Color(0xFFEBF4F3),
+                          fontFamily: 'Poppins',
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Belum punya akun? ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Poppins',
+                            fontSize: 14.0,
+                          )),
+                      GestureDetector(
+                        onTap: _handleDaftar,
+                        child: Text('daftar',
+                            style: TextStyle(
+                              color: Color(0xFF008305),
+                              fontFamily: 'Poppins',
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                            )),
+                      )
+                    ],
                   )
                 ]),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'No.Hp',
-                  labelStyle: TextStyle(
-                      color: Color(0xFF000000),
-                      fontSize: 14.0,
-                      fontFamily: 'Poppins'),
-                  hintText: '0812xxxxxxxx',
-                  hintStyle: TextStyle(
-                      color: Color(0xFF000000).withOpacity(0.3),
-                      fontSize: 14.0,
-                      fontFamily: 'Poppins'),
-                  contentPadding: EdgeInsets.only(
-                    top: 13.0,
-                    bottom: 12.0,
-                    left: 18.0,
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                      borderSide: BorderSide(color: Color(0xFF008305))),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                    borderSide: BorderSide(color: Color(0xFF008305)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                    borderSide: BorderSide(color: Color(0xFF008305)),
-                  ),
-                ),
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Color(0xFF000000),
-                  fontFamily: 'Poppins',
-                ),
               ),
             ],
           ),

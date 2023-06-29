@@ -254,27 +254,29 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 12.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Belum punya akun? ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 14.0,
-                          )),
-                      GestureDetector(
-                        onTap: _handleDaftar,
-                        child: Text('daftar',
-                            style: TextStyle(
-                              color: Color(0xFF008305),
-                              fontFamily: 'Poppins',
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
-                            )),
-                      )
-                    ],
-                  )
+                  _daftarVisible
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Belum punya akun? ',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14.0,
+                                )),
+                            GestureDetector(
+                              onTap: _handleDaftar,
+                              child: Text('daftar',
+                                  style: TextStyle(
+                                    color: Color(0xFF008305),
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            )
+                          ],
+                        )
+                      : SizedBox(),
                 ]),
               ),
             ],

@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/masyarakat/register_page.dart';
+import 'package:rumah_sampah_digital/on_develop_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: ((context) => MasyarakatRegisterPage()),
+        builder: ((context) => OnDevelopPage()),
       ),
     );
   }

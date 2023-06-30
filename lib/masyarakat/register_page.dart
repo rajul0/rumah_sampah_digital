@@ -1,18 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/login_page.dart';
 import 'package:rumah_sampah_digital/on_develop_page.dart';
 
-import 'masyarakat/register_page.dart';
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -32,31 +31,13 @@ class _LoginPageState extends State<LoginPage> {
     'Masyarakat',
   ];
 
-  void _handleDaftar() {
+  void _handleMasuk() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: ((context) => RegisterPage()),
+        builder: ((context) => LoginPage()),
       ),
     );
-  }
-
-  void login() async {
-    try {
-      await auth.signInWithEmailAndPassword(
-          email: '${_noHp}@bsd.com', password: _password);
-      // mendapatkan sebagai akunnya
-      User? user = auth.currentUser;
-      String? role = user?.displayName;
-      if (role == 'Admin Bank Sampah') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => OnDevelopPage()),
-        );
-      }
-    } on FirebaseAuthException catch (error) {
-      _errorLoginMessage = 'Email atau password yang anda masukkan salah';
-    }
   }
 
   void logOut() async {
@@ -84,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Masuk',
+                  'Daftar',
                   style: TextStyle(
                     color: Color(0xFF000000),
                     fontSize: 38,
@@ -94,22 +75,39 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: 162.0,
+                height: 78.0,
               ),
               Form(
                 autovalidateMode: _autoValidateMode,
                 key: _formKey,
                 child: Column(children: [
-                  DropdownButtonFormField<String>(
+                  TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Pilih login sebagai';
+                        return 'Nama Lengkap tidak boleh kosong';
                       }
                       return null;
                     },
+                    keyboardType: TextInputType.text,
+                    onChanged: (value) {
+                      setState(() {
+                        _password = value;
+                      });
+                    },
+                    obscureText: _passwordVisible,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
+                      labelText: 'Nama Lengkap',
+                      labelStyle: TextStyle(
+                          color: Color(0xFF000000),
+                          fontSize: 14.0,
+                          fontFamily: 'Poppins'),
+                      hintText: 'Nama Lengkap',
+                      hintStyle: TextStyle(
+                          color: Color(0xFF000000).withOpacity(0.3),
+                          fontSize: 14.0,
+                          fontFamily: 'Poppins'),
                       contentPadding: EdgeInsets.only(
                         top: 13.0,
                         bottom: 12.0,
@@ -128,30 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                         borderSide: BorderSide(color: Color(0xFF008305)),
                       ),
                     ),
-                    value: loginSebagai,
-                    hint: Text('Pilih login sebagai'),
-                    onChanged: (value) {
-                      setState(() {
-                        loginSebagai = value;
-                        if (value == 'Masyarakat') {
-                          _daftarVisible = true;
-                        } else {
-                          _daftarVisible = false;
-                        }
-                      });
-                    },
-                    items:
-                        sebagai.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
                     style: TextStyle(
-                      color: Color(0xFF008305),
-                      fontFamily: 'Poppins',
                       fontSize: 14.0,
-                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF000000),
+                      fontFamily: 'Poppins',
                     ),
                   ),
                   SizedBox(
@@ -277,7 +255,76 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 159.0,
+                    height: 33.0,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Kata sandi tidak sama';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      setState(() {
+                        _password = value;
+                      });
+                    },
+                    obscureText: _passwordVisible,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Konfirmasi Kata Sandi',
+                      labelStyle: TextStyle(
+                          color: Color(0xFF000000),
+                          fontSize: 14.0,
+                          fontFamily: 'Poppins'),
+                      hintText: '********',
+                      hintStyle: TextStyle(
+                          color: Color(0xFF000000).withOpacity(0.3),
+                          fontSize: 14.0,
+                          fontFamily: 'Poppins'),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.grey,
+                            ),
+                          )),
+                      contentPadding: EdgeInsets.only(
+                        top: 13.0,
+                        bottom: 12.0,
+                        left: 18.0,
+                        right: 18.0,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          borderSide: BorderSide(color: Color(0xFF008305))),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        borderSide: BorderSide(color: Color(0xFF008305)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                        borderSide: BorderSide(color: Color(0xFF008305)),
+                      ),
+                    ),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color(0xFF000000),
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 77.0,
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -285,7 +332,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          login();
+                          logOut();
                         } else {
                           setState(() {
                             _autoValidateMode = AutovalidateMode.always;
@@ -300,7 +347,7 @@ class _LoginPageState extends State<LoginPage> {
                         backgroundColor: Color(0xFF008305),
                       ),
                       child: const Text(
-                        'Masuk',
+                        'Daftar',
                         style: TextStyle(
                           color: Color(0xFFEBF4F3),
                           fontFamily: 'Poppins',
@@ -311,29 +358,27 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 12.0),
-                  _daftarVisible
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Belum punya akun? ',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Poppins',
-                                  fontSize: 14.0,
-                                )),
-                            GestureDetector(
-                              onTap: _handleDaftar,
-                              child: Text('daftar',
-                                  style: TextStyle(
-                                    color: Color(0xFF008305),
-                                    fontFamily: 'Poppins',
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                            )
-                          ],
-                        )
-                      : SizedBox(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Sudah punya akun? ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Poppins',
+                            fontSize: 14.0,
+                          )),
+                      GestureDetector(
+                        onTap: _handleMasuk,
+                        child: Text('masuk',
+                            style: TextStyle(
+                              color: Color(0xFF008305),
+                              fontFamily: 'Poppins',
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                            )),
+                      )
+                    ],
+                  )
                 ]),
               ),
             ],

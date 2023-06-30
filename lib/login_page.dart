@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/on_develop_page.dart';
 
@@ -11,12 +12,15 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
-  bool _passwordVisible = false;
+  bool _passwordVisible = true;
   bool _daftarVisible = false;
 
-  String noHp = '';
-  String password = '';
+  String _errorLoginMessage = '';
+
+  String _noHp = '';
+  String _password = '';
 
   var loginSebagai;
   List<String> sebagai = [
@@ -32,6 +36,30 @@ class _LoginPageState extends State<LoginPage> {
         builder: ((context) => OnDevelopPage()),
       ),
     );
+  }
+
+  void login() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      await auth.signInWithEmailAndPassword(
+          email: '${_noHp}@bsd.com', password: _password);
+      // mendapatkan sebagai akunnya
+      User? user = auth.currentUser;
+      String? role = user?.displayName;
+      if (role == 'Admin Bank Sampah') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OnDevelopPage()),
+        );
+      }
+    } on FirebaseAuthException catch (error) {
+      _errorLoginMessage = 'Email atau password yang anda masukkan salah';
+    }
+  }
+
+  void logOut() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.signOut();
   }
 
   @override
@@ -67,9 +95,16 @@ class _LoginPageState extends State<LoginPage> {
                 height: 162.0,
               ),
               Form(
+                autovalidateMode: _autoValidateMode,
                 key: _formKey,
                 child: Column(children: [
                   DropdownButtonFormField<String>(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Pilih login sebagai';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -121,10 +156,16 @@ class _LoginPageState extends State<LoginPage> {
                     height: 33.0,
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Nomor Hp tidak boleh kosong';
+                      }
+                      return null;
+                    },
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
-                        noHp = value;
+                        _noHp = value;
                       });
                     },
                     decoration: InputDecoration(
@@ -168,10 +209,16 @@ class _LoginPageState extends State<LoginPage> {
                     height: 33.0,
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Password tidak boleh kosong';
+                      }
+                      return null;
+                    },
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
-                        password = value;
+                        _password = value;
                       });
                     },
                     obscureText: _passwordVisible,
@@ -234,7 +281,15 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     height: 53.0,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          login();
+                        } else {
+                          setState(() {
+                            _autoValidateMode = AutovalidateMode.always;
+                          });
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),

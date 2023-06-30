@@ -1,8 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/component/register_account.dart';
 import 'package:rumah_sampah_digital/login_page.dart';
-import 'package:rumah_sampah_digital/on_develop_page.dart';
+import 'package:rumah_sampah_digital/proses/proses_akun.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -19,8 +19,10 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _passwordVisible = true;
   bool _daftarVisible = false;
 
-  String _errorLoginMessage = '';
+  String _errorRegisMessage = '';
+  bool _statusNoHp = false;
 
+  String _fullName = '';
   String _noHp = '';
   String _password = '';
 
@@ -40,9 +42,25 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  void register() async {
+    var userCredential = await registAccountWithPhoneNumber(
+        _fullName, _noHp, _password,
+        role: 'Masyarakat');
+    await Future.delayed(Duration(seconds: 2));
+    print(userCredential);
+    if (userCredential != null &&
+        userCredential.toString() !=
+            '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+      popUpSuccesRegistAccount(context);
+    } else if (userCredential.toString() ==
+        '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+      _statusNoHp = true;
+    }
+  }
+
   void logOut() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    await auth.signOut();
+    // final FirebaseAuth auth = FirebaseAuth.instance;
+    // await auth.signOut();
   }
 
   @override
@@ -91,10 +109,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     keyboardType: TextInputType.text,
                     onChanged: (value) {
                       setState(() {
-                        _password = value;
+                        _fullName = value;
                       });
                     },
-                    obscureText: _passwordVisible,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -139,13 +156,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Nomor Hp tidak boleh kosong';
+                      } else if (_statusNoHp) {
+                        return 'Nomor Hp telah terdaftar';
                       }
+                      ;
                       return null;
                     },
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
                         _noHp = value;
+                        _statusNoHp = false;
                       });
                     },
                     decoration: InputDecoration(
@@ -191,7 +212,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Password tidak boleh kosong';
+                        return 'Kata sandi tidak boleh kosong';
                       }
                       return null;
                     },
@@ -260,16 +281,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
+                        return 'Kata sandi tidak boleh kosong';
+                      } else if (value != _password) {
                         return 'Kata sandi tidak sama';
                       }
+                      print(value == _password);
                       return null;
                     },
                     keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        _password = value;
-                      });
-                    },
                     obscureText: _passwordVisible,
                     decoration: InputDecoration(
                       filled: true,
@@ -332,7 +351,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          logOut();
+                          register();
                         } else {
                           setState(() {
                             _autoValidateMode = AutovalidateMode.always;

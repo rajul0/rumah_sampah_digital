@@ -80,6 +80,7 @@ flutter:
         - asset: assets/font/poppins/Poppins-Regular.ttf
         - asset: assets/font/poppins/Poppins-Bold.ttf
         - asset: assets/font/poppins/Poppins-Light.ttf
+        - asset: assets/font/poppins/Poppins-SemiBold.ttf
 
   #
   # For details regarding fonts from package dependencies,

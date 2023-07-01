@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/home_page.dart';
 import 'package:rumah_sampah_digital/login_page.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -47,6 +48,7 @@ class _WelcomePageState extends State<WelcomePage> {
               Image(
                 image: AssetImage('assets/image/logo_aplikasi.png'),
                 width: 240,
+                height: 241,
               ),
               SizedBox(
                 height: 75.0,
@@ -82,7 +84,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
+                          builder: (context) => const HomePageABS(),
                         ),
                       );
                     },

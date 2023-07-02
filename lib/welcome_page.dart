@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/home_page.dart';
 import 'package:rumah_sampah_digital/login_page.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -84,7 +83,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const HomePageABS(),
+                          builder: (context) => const LoginPage(),
                         ),
                       );
                     },

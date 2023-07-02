@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rumah_sampah_digital/welcome_page.dart';
 
 import 'admin_bank_sampah/home_nav.dart';
 
@@ -17,12 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
-      home: HomeNav(),
+      home: WelcomePage(),
     );
   }
 }

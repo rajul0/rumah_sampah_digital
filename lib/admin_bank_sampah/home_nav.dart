@@ -16,6 +16,12 @@ class _HomeNavState extends State<HomeNav> {
     'assets/image/profile_ic.png',
   ];
 
+  final List<String> _selectPngIcon = [
+    'assets/image/select_home_ic.png',
+    'assets/image/select_sell_ic.png',
+    'assets/image/select_profile_ic.png',
+  ];
+
   final List<Widget> _widgetOptions = [
     // Add your widget options here
     HomePageABS(),
@@ -40,32 +46,56 @@ class _HomeNavState extends State<HomeNav> {
         items: [
           BottomNavigationBarItem(
             label: '',
-            icon: Image(
-              image: AssetImage(
-                'assets/image/home_ic.png',
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Image(
+                image: _selectedIndex ==
+                        _pngIcon.indexOf('assets/image/home_ic.png')
+                    ? AssetImage(
+                        'assets/image/select_home_ic.png',
+                      )
+                    : AssetImage(
+                        'assets/image/home_ic.png',
+                      ),
+                width: 30,
+                height: 30,
               ),
-              width: 30,
-              height: 30,
             ),
           ),
           BottomNavigationBarItem(
             label: '',
-            icon: Image(
-              image: AssetImage(
-                'assets/image/sell_ic.png',
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Image(
+                image: _selectedIndex ==
+                        _pngIcon.indexOf('assets/image/sell_ic.png')
+                    ? AssetImage(
+                        'assets/image/select_sell_ic.png',
+                      )
+                    : AssetImage(
+                        'assets/image/sell_ic.png',
+                      ),
+                width: 30,
+                height: 30,
               ),
-              width: 30,
-              height: 30,
             ),
           ),
           BottomNavigationBarItem(
             label: '',
-            icon: Image(
-              image: AssetImage(
-                'assets/image/profile_ic.png',
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Image(
+                image: _selectedIndex ==
+                        _pngIcon.indexOf('assets/image/profile_ic.png')
+                    ? AssetImage(
+                        'assets/image/select_profile_ic.png',
+                      )
+                    : AssetImage(
+                        'assets/image/profile_ic.png',
+                      ),
+                width: 30,
+                height: 30,
               ),
-              width: 30,
-              height: 30,
             ),
           ),
         ],

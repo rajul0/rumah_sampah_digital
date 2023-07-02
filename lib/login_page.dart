@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
 import 'package:rumah_sampah_digital/on_develop_page.dart';
 
 import 'masyarakat/register_page.dart';
@@ -51,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
       if (role == 'Admin Bank Sampah') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OnDevelopPage()),
+          MaterialPageRoute(builder: (context) => HomeNav()),
         );
       }
     } on FirebaseAuthException catch (error) {

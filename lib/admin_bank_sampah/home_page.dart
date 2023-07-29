@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos.dart';
 
 class HomePageABS extends StatefulWidget {
   const HomePageABS({super.key});
@@ -62,25 +63,34 @@ class _HomePageABSState extends State<HomePageABS> {
                 // 3 Fitur utama  disini
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 55.0,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          child: Image(
-                            image: AssetImage('assets/image/draft.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LaporanPosPage()),
+                      );
+                    },
+                    child: Container(
+                      width: 55.0,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            child: Image(
+                              image: AssetImage('assets/image/draft.png'),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
-                        Text(
-                          'Laporan Pos Sampah',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 12.0, fontWeight: FontWeight.w600),
-                        )
-                      ],
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            'Laporan Pos Sampah',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.0, fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Container(

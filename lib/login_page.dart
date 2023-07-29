@@ -54,6 +54,8 @@ class _LoginPageState extends State<LoginPage> {
           context,
           MaterialPageRoute(builder: (context) => HomeNav()),
         );
+      } else if (role == 'Masyarakat') {
+        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
       }
     } on FirebaseAuthException catch (error) {
       _errorLoginMessage = 'Email atau password yang anda masukkan salah';
@@ -97,6 +99,19 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 162.0,
               ),
+              Container(
+                width: double.infinity,
+                child: Text(
+                  _errorLoginMessage,
+                  style: TextStyle(
+                    fontFamily: 'InriaSans',
+                    fontSize: 14.0,
+                    color: Colors.red,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 10.0),
               Form(
                 autovalidateMode: _autoValidateMode,
                 key: _formKey,
@@ -168,6 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
+                        _errorLoginMessage = '';
                         _noHp = value;
                       });
                     },
@@ -221,6 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
+                        _errorLoginMessage = '';
                         _password = value;
                       });
                     },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/component/card_laporan_pos_sampah.dart';
 
 class LaporanPosPage extends StatefulWidget {
   const LaporanPosPage({super.key});
@@ -18,7 +19,7 @@ class _LaporanPosPageState extends State<LaporanPosPage> {
           child: Column(
             children: [
               Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
@@ -45,6 +46,22 @@ class _LaporanPosPageState extends State<LaporanPosPage> {
                       height: 7,
                     ),
                   ]),
+              SizedBox(
+                height: 33.0,
+              ),
+              laporanPosCard(
+                  context,
+                  'Dusun A',
+                  'Sampah Sudah penuh, dapat dijemput',
+                  'assets/dummy_image/pos_sampah_a.png'),
+              SizedBox(
+                height: 33.0,
+              ),
+              laporanPosCard(
+                  context,
+                  'Dusun B',
+                  'Sampah Sudah penuh, dapat dijemput',
+                  'assets/dummy_image/pos_sampah_a.png')
             ],
           ),
         ),

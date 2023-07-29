@@ -49,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
       // mendapatkan sebagai akunnya
       User? user = auth.currentUser;
       String? role = user?.displayName;
+      print(role);
       if (role == 'Admin Bank Sampah') {
         Navigator.push(
           context,

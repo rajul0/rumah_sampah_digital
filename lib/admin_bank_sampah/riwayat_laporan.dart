@@ -51,7 +51,12 @@ class _RiwayatLaporanPageState extends State<RiwayatLaporanPage> {
                 height: 33.0,
               ),
               riwayatLaporanPosCard(
-                  context, 'Dusun A', 'Terima', '29 Juli 2023', '30 Juli 2023')
+                  context, 'Dusun A', 'Terima', '29 Juli 2023', '30 Juli 2023'),
+              SizedBox(
+                height: 20.0,
+              ),
+              riwayatLaporanPosCard(
+                  context, 'Dusun B', 'Ditolak', '27 Juli 2023', '-')
             ],
           ),
         ),

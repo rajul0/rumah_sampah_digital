@@ -130,28 +130,28 @@ class _HomePageABSState extends State<HomePageABS> {
               SizedBox(
                 height: 47.0,
               ),
-              Container(
-                width: 79.0,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 46.0,
-                      child: Image(
-                        image: AssetImage('assets/image/aduan.png'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Text(
-                      'Aduan\nMasyarakat',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 12.0, fontWeight: FontWeight.w600),
-                    )
-                  ],
-                ),
-              )
+              // Container(
+              //   width: 79.0,
+              //   child: Column(
+              //     children: [
+              //       SizedBox(
+              //         height: 46.0,
+              //         child: Image(
+              //           image: AssetImage('assets/image/aduan.png'),
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         height: 5.0,
+              //       ),
+              //       Text(
+              //         'Aduan\nMasyarakat',
+              //         textAlign: TextAlign.center,
+              //         style: TextStyle(
+              //             fontSize: 12.0, fontWeight: FontWeight.w600),
+              //       )
+              //     ],
+              //   ),
+              // )
             ],
           ),
         ),

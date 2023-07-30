@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_konfirmasi_laporan_pos.dart';
 
 Widget laporanPosCard(
     BuildContext context, String namaDusun, String status, image) {
@@ -71,7 +72,9 @@ Widget laporanPosCard(
                   width: 94.0,
                   height: 33.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      popUpTolakLaporan(context);
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -97,7 +100,9 @@ Widget laporanPosCard(
                   width: 94.0,
                   height: 33.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      popUpTerimaLaporan(context);
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/card_laporan_pos_sampah.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/component/card_riwayat_laporan_pos.dart';
 
-class LaporanPosPage extends StatefulWidget {
-  const LaporanPosPage({super.key});
+class RiwayatLaporanPage extends StatefulWidget {
+  const RiwayatLaporanPage({super.key});
 
   @override
-  State<LaporanPosPage> createState() => _LaporanPosPageState();
+  State<RiwayatLaporanPage> createState() => _RiwayatLaporanPageState();
 }
 
-class _LaporanPosPageState extends State<LaporanPosPage> {
+class _RiwayatLaporanPageState extends State<RiwayatLaporanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +35,7 @@ class _LaporanPosPageState extends State<LaporanPosPage> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Laporan Pos',
+                        'Riwayat Laporan Pos',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 22.0,
@@ -49,19 +50,8 @@ class _LaporanPosPageState extends State<LaporanPosPage> {
               SizedBox(
                 height: 33.0,
               ),
-              laporanPosCard(
-                  context,
-                  'Dusun A',
-                  'Sampah Sudah penuh, dapat dijemput',
-                  'assets/dummy_image/pos_sampah_a.png'),
-              SizedBox(
-                height: 33.0,
-              ),
-              laporanPosCard(
-                  context,
-                  'Dusun B',
-                  'Sampah Sudah penuh, dapat dijemput',
-                  'assets/dummy_image/pos_sampah_a.png')
+              riwayatLaporanPosCard(
+                  context, 'Dusun A', 'Terima', '29 Juli 2023', '30 Juli 2023')
             ],
           ),
         ),

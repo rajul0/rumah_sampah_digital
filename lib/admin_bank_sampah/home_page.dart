@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan.dart';
 
 class HomePageABS extends StatefulWidget {
   const HomePageABS({super.key});
@@ -49,7 +50,7 @@ class _HomePageABSState extends State<HomePageABS> {
                 height: 31,
               ),
               Text(
-                '1',
+                '2',
                 style: TextStyle(
                   color: Color(0xFF008305),
                   fontSize: 62,
@@ -93,26 +94,35 @@ class _HomePageABSState extends State<HomePageABS> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 55.0,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 46.0,
-                          child: Image(
-                            image: AssetImage('assets/image/riwayat.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RiwayatLaporanPage()),
+                      );
+                    },
+                    child: Container(
+                      width: 55.0,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 46.0,
+                            child: Image(
+                              image: AssetImage('assets/image/riwayat.png'),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          'Riwayat Laporan',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 12.0, fontWeight: FontWeight.w600),
-                        )
-                      ],
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'Riwayat Laporan',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.0, fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

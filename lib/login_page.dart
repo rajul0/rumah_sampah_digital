@@ -59,7 +59,9 @@ class _LoginPageState extends State<LoginPage> {
         _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
       }
     } on FirebaseAuthException catch (error) {
-      _errorLoginMessage = 'Email atau password yang anda masukkan salah';
+      setState(() {
+        _errorLoginMessage = 'Email atau password yang anda masukkan salah';
+      });
     }
   }
 
@@ -119,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(children: [
                   DropdownButtonFormField<String>(
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value == null) {
                         return 'Pilih login sebagai';
                       }
                       return null;
@@ -176,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value == '') {
                         return 'Nomor Hp tidak boleh kosong';
                       }
                       return null;
@@ -230,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value == '') {
                         return 'Password tidak boleh kosong';
                       }
                       return null;

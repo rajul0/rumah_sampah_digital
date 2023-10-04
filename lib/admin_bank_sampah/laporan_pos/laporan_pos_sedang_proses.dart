@@ -38,17 +38,27 @@ class _LaporanPosSedangProsesPageState
                     return Text('Error: ${snapshot.error}');
                   } else {
                     List items = snapshot.data!;
-                    return Column(
-                        children: List.generate(
-                            items.length,
-                            (index) => laporanPosDiprosesCard(
-                                  context,
-                                  items[index]['alamat'],
-                                  items[index]['catatan'],
-                                  items[index]['tanggal_lapor'],
-                                  'assets/dummy_image/pos_sampah_a.png',
-                                  items[index]['dijemput_oleh'],
-                                )));
+                    return items.isEmpty
+                        ? SizedBox(
+                            height: 20.0,
+                            width: double.infinity,
+                            child: Text(
+                              "Tidak ada sampah yang sedang dijemput",
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : Column(
+                            children: List.generate(
+                                items.length,
+                                (index) => laporanPosDiprosesCard(
+                                      context,
+                                      items[index]['id'],
+                                      items[index]['alamat'],
+                                      items[index]['catatan'],
+                                      items[index]['tanggal_lapor'],
+                                      'assets/dummy_image/pos_sampah_a.png',
+                                      items[index]['dijemput_oleh'],
+                                    )));
                   }
                 },
               ),

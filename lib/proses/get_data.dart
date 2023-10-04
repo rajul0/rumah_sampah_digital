@@ -18,7 +18,7 @@ Future<List> getLaporanPos(status) async {
     data['status'] = doc['status'];
     data['catatan'] = doc['catatan'];
     data['imgPath'] = doc['img_path'];
-    data['tanggal_lapor'] = doc['tanggal_lapor'];
+    data['tanggal_lapor'] = DateTime.parse(doc['tanggal_lapor']);
     data['id'] = doc.id;
 
     if (data['status'] == 'proses') {

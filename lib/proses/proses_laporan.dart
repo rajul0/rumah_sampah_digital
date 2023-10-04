@@ -1,13 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-void ubahStatusLaporan(idLaporan, petugas, status) {
+void ubahStatusLaporan(idLaporan, status, {petugas}) {
   DateTime date = DateTime.now();
-  String formatedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(date);
+  String formatedDate = date.toString();
   FirebaseFirestore db = FirebaseFirestore.instance;
-  db.collection('laporan_pos').doc(idLaporan).update({
-    'status': status,
-    'dijemput_oleh': petugas,
-    'tanggal_proses': formatedDate
-  });
+
+  if (status == 'proses') {
+    db.collection('laporan_pos').doc(idLaporan).update({
+      'status': status,
+      'dijemput_oleh': petugas,
+      'tanggal_proses': formatedDate
+    });
+  } else if (status == 'menunggu') {
+    db.collection('laporan_pos').doc(idLaporan).update({
+      'status': status,
+      'dijemput_oleh': FieldValue.delete(),
+      'tanggal_proses': FieldValue.delete(),
+    });
+  }
 }

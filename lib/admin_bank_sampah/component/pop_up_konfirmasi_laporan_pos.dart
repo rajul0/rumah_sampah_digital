@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos/laporan_pos.dart';
 import 'package:rumah_sampah_digital/proses/proses_laporan.dart';
 
 Future prosesLaporan(context, idLaporan) {
@@ -6,8 +7,13 @@ Future prosesLaporan(context, idLaporan) {
   String _dijemputOleh = '';
 
   void prosesJemput() {
-    ubahStatusLaporan(idLaporan, _dijemputOleh, 'proses');
+    ubahStatusLaporan(idLaporan, 'proses', petugas: _dijemputOleh);
     Navigator.pop(context);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: ((context) => LaporanPosPage()),
+      ),
+    );
     popUpProsesLaporan(context);
   }
 
@@ -259,6 +265,11 @@ Future popUpBatalProsesLaporan(context) {
                   ElevatedButton.styleFrom(backgroundColor: Color(0xFF0095DA)),
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: ((context) => LaporanPosPage()),
+                  ),
+                );
               },
               child: Text("OK"),
             ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_konfirmasi_laporan_pos.dart';
+import 'package:rumah_sampah_digital/proses/proses_laporan.dart';
 
 Widget laporanPosCard(BuildContext context, String namaDusun, String catatan,
-    String date, image, id) {
-  DateTime dateParse = DateFormat('yyyy-MM-dd HH:mm:ss').parse(date);
-  String formatedDate = DateFormat('yyyy-MM-dd').format(dateParse);
-  String formatedTime = DateFormat('HH:mm').format(dateParse);
+    DateTime date, image, id) {
+  // DateTime dateParse = DateFormat('yyyy-MM-dd HH:mm:ss SSS').parse(date);
+  String formatedDate = DateFormat('yyyy-MM-dd').format(date);
+  String formatedTime = DateFormat('HH:mm').format(date);
 
   return SizedBox(
     height: 372.0,
@@ -141,11 +142,16 @@ Widget laporanPosCard(BuildContext context, String namaDusun, String catatan,
   );
 }
 
-Widget laporanPosDiprosesCard(BuildContext context, String namaDusun,
-    String catatan, String date, image, dijemput_oleh) {
-  DateTime dateParse = DateFormat('yyyy-MM-dd HH:mm:ss').parse(date);
-  String formatedDate = DateFormat('yyyy-MM-dd').format(dateParse);
-  String formatedTime = DateFormat('HH:mm').format(dateParse);
+Widget laporanPosDiprosesCard(BuildContext context, idLaporan, String namaDusun,
+    String catatan, DateTime date, image, dijemput_oleh) {
+  // DateTime dateParse = DateFormat('yyyy-MM-dd HH:mm:ss SSS').parse(date);
+  String formatedDate = DateFormat('yyyy-MM-dd').format(date);
+  String formatedTime = DateFormat('HH:mm').format(date);
+
+  void batalProses() {
+    ubahStatusLaporan(idLaporan, 'menunggu');
+    popUpBatalProsesLaporan(context);
+  }
 
   return SizedBox(
     height: 372.0,
@@ -215,7 +221,7 @@ Widget laporanPosDiprosesCard(BuildContext context, String namaDusun,
                   height: 33.0,
                   child: ElevatedButton(
                     onPressed: () {
-                      popUpBatalProsesLaporan(context);
+                      batalProses();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_konfirmasi_laporan_pos.dart';
+import 'package:intl/intl.dart';
 
 Widget riwayatLaporanPosCard(BuildContext context, String namaDusun,
-    String status, tanggalLapor, tanggalTerima) {
+    String status, tanggalLapor, tanggalTerimaTolak) {
+  // Ubah tulisan
+  var firstLetter = status[0].toUpperCase();
+  var remainingLetters = status.substring(1);
+  status = firstLetter + remainingLetters;
+
+  // ubah format tanggal dan jam lapor
+  DateTime dateLaporParse =
+      DateFormat('yyyy-MM-dd HH:mm:ss').parse(tanggalLapor);
+  String formatedLaporDate = DateFormat('yyyy-MM-dd').format(dateLaporParse);
+  // String formatedLaporTime = DateFormat('HH:mm').format(dateLaporParse);
+
+  // ubah format tanggal terima
+  DateTime dateTerimaTolakParse =
+      DateFormat('yyyy-MM-dd HH:mm:ss').parse(tanggalTerimaTolak);
+  String formatedTerimaTolakDate =
+      DateFormat('yyyy-MM-dd').format(dateTerimaTolakParse);
+  // String formatedTerimaTolakTime =
+  //     DateFormat('HH:mm').format(dateTerimaTolakParse);
+
   return SizedBox(
     width: double.infinity,
     child: Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15.0),
-        ),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF53AB5A), Color(0xFF8FE3A4)],
-        ),
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.0),
+          ),
+          border: Border.all(color: Colors.green)),
       child: Padding(
         padding: const EdgeInsets.all(13.0),
         child: Column(
@@ -54,7 +69,7 @@ Widget riwayatLaporanPosCard(BuildContext context, String namaDusun,
                   ),
                 ),
                 Text(
-                  tanggalLapor,
+                  formatedLaporDate,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 16.0,
@@ -68,14 +83,14 @@ Widget riwayatLaporanPosCard(BuildContext context, String namaDusun,
             Row(
               children: [
                 Text(
-                  'Tanggal Terima: ',
+                  'Tanggal $status: ',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 16.0,
                   ),
                 ),
                 Text(
-                  tanggalTerima,
+                  formatedTerimaTolakDate,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 16.0,

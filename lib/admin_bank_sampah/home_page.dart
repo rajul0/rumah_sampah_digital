@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos/laporan_pos.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_laporan.dart';
 
 class HomePageABS extends StatefulWidget {
   const HomePageABS({super.key});
@@ -13,6 +13,7 @@ class _HomePageABSState extends State<HomePageABS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEBF4F3),
       body: SingleChildScrollView(
         child: Padding(
           padding:
@@ -20,7 +21,7 @@ class _HomePageABSState extends State<HomePageABS> {
           child: Column(
             children: [
               Text(
-                'Halo, petugas',
+                'Halo, Admin',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 22.0,
@@ -50,7 +51,7 @@ class _HomePageABSState extends State<HomePageABS> {
                 height: 31,
               ),
               Text(
-                '2',
+                '',
                 style: TextStyle(
                   color: Color(0xFF008305),
                   fontSize: 62,

@@ -50,12 +50,24 @@ class _LoginPageState extends State<LoginPage> {
       User? user = auth.currentUser;
       String? role = user?.displayName;
       print(role);
-      if (role == 'Admin Bank Sampah') {
+      if (role == loginSebagai) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomeNav()),
         );
-      } else if (role == 'Masyarakat') {
+      } else if (role == 'Admin Bank Sampah' &&
+          loginSebagai == 'Admin Pos Sampah') {
+        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+      } else if (role == 'Admin Bank Sampah' && loginSebagai == 'Masyarakat') {
+        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+      } else if (role == 'Admin Pos Sampah' &&
+          loginSebagai == 'Admin Bank Sampah') {
+        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+      } else if (role == 'Admin Pos Sampah' && loginSebagai == 'Masyarakat') {
+        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+      } else if (role == 'Masyarakat' && loginSebagai == 'Admin Bank Sampah') {
+        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+      } else if (role == 'Masyarakat' && loginSebagai == 'Admin Pos Sampah') {
         _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
       }
     } on FirebaseAuthException catch (error) {
@@ -65,10 +77,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void logOut() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    await auth.signOut();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {

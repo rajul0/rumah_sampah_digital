@@ -48,7 +48,7 @@ class _LaporanPosMenungguPageState extends State<LaporanPosMenungguPage> {
                         : Column(
                             children: List.generate(
                                 items.length,
-                                (index) => laporanPosCard(
+                                (index) => laporanPosMenungguCard(
                                       context,
                                       items[index]['alamat'],
                                       items[index]['catatan'],

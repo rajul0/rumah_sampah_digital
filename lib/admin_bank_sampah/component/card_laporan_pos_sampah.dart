@@ -3,11 +3,15 @@ import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_konfirmasi_laporan_pos.dart';
 import 'package:rumah_sampah_digital/proses/proses_laporan.dart';
 
-Widget laporanPosCard(BuildContext context, String namaDusun, String catatan,
-    DateTime date, image, id) {
+Widget laporanPosMenungguCard(BuildContext context, String namaDusun,
+    String catatan, DateTime date, image, id) {
   // DateTime dateParse = DateFormat('yyyy-MM-dd HH:mm:ss SSS').parse(date);
   String formatedDate = DateFormat('yyyy-MM-dd').format(date);
   String formatedTime = DateFormat('HH:mm').format(date);
+
+  void tolakLaporan() {
+    popUpKonfirmasiTolakLaporan(context, id);
+  }
 
   return SizedBox(
     height: 372.0,
@@ -85,7 +89,7 @@ Widget laporanPosCard(BuildContext context, String namaDusun, String catatan,
                   height: 33.0,
                   child: ElevatedButton(
                     onPressed: () {
-                      popUpTolakLaporan(context);
+                      tolakLaporan();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

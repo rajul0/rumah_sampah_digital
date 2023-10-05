@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_diterima.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_selesai.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_ditolak.dart';
 
 class RiwayatLaporanPage extends StatefulWidget {
@@ -56,7 +56,7 @@ class _RiwayatLaporanPageState extends State<RiwayatLaporanPage>
         bottom: TabBar(
           controller: _tabController, // Menggunakan TabController
           tabs: [
-            Tab(text: 'Diterima'),
+            Tab(text: 'Selesai'),
             Tab(
               child: Text(
                 'Ditolak',

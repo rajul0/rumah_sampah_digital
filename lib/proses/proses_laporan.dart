@@ -22,7 +22,12 @@ void ubahStatusLaporan(idLaporan, status, {petugas}) {
       'status': status,
       'tanggal_ditolak': formatedDate,
       'dijemput_oleh': FieldValue.delete(),
-      'tanggal_proses': FieldValue.delete(),
+      // 'tanggal_proses': FieldValue.delete(),
+    });
+  } else if (status == 'selesai') {
+    db.collection('laporan_pos').doc(idLaporan).update({
+      'status': status,
+      'tanggal_selesai': formatedDate,
     });
   }
 }

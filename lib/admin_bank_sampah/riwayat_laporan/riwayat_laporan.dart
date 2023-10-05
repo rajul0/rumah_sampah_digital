@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_selesai.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_ditolak.dart';
 
@@ -34,7 +35,12 @@ class _RiwayatLaporanPageState extends State<RiwayatLaporanPage>
         elevation: 0.0,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeNav(),
+              ),
+            );
           },
           child: SizedBox(
             height: 34.0,

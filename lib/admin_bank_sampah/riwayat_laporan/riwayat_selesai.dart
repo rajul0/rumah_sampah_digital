@@ -13,7 +13,7 @@ class _RiwayatDiterimaState extends State<RiwayatDiterima> {
   Future<List<dynamic>> fetchData() async {
     // Mengambil data dari firebase menggunakan fungsi dibawah, datanya yang dikembalikan sudah dirapikan
 
-    return await getRiwayatLaporanPos('diterima');
+    return await getRiwayatLaporanPos('selesai');
   }
 
   @override
@@ -37,16 +37,25 @@ class _RiwayatDiterimaState extends State<RiwayatDiterima> {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     List items = snapshot.data!;
-                    return Column(
-                        children: List.generate(
-                            items.length,
-                            (index) => riwayatLaporanPosCard(
-                                  context,
-                                  items[index]['alamat'],
-                                  items[index]['status'],
-                                  items[index]['tanggal_lapor'],
-                                  items[index]['tanggal_diterima'],
-                                )));
+                    return items.isEmpty
+                        ? SizedBox(
+                            height: 20.0,
+                            width: double.infinity,
+                            child: Text(
+                              "Belum ada penjemputan yang selesai",
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : Column(
+                            children: List.generate(
+                                items.length,
+                                (index) => riwayatLaporanPosCard(
+                                      context,
+                                      items[index]['alamat'],
+                                      items[index]['status'],
+                                      items[index]['tanggal_lapor'],
+                                      items[index]['tanggal_selesai'],
+                                    )));
                   }
                 },
               ),

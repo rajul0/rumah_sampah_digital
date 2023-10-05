@@ -37,16 +37,25 @@ class _RiwayatDitolakState extends State<RiwayatDitolak> {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     List items = snapshot.data!;
-                    return Column(
-                        children: List.generate(
-                            items.length,
-                            (index) => riwayatLaporanPosCard(
-                                  context,
-                                  items[index]['alamat'],
-                                  items[index]['status'],
-                                  items[index]['tanggal_lapor'],
-                                  items[index]['tanggal_ditolak'],
-                                )));
+                    return items.isEmpty
+                        ? SizedBox(
+                            height: 20.0,
+                            width: double.infinity,
+                            child: Text(
+                              "Belum ada laporan yang ditolak",
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : Column(
+                            children: List.generate(
+                                items.length,
+                                (index) => riwayatLaporanPosCard(
+                                      context,
+                                      items[index]['alamat'],
+                                      items[index]['status'],
+                                      items[index]['tanggal_lapor'],
+                                      items[index]['tanggal_ditolak'],
+                                    )));
                   }
                 },
               ),

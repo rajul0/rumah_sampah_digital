@@ -3,6 +3,9 @@ import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos/laporan_pos.d
 import 'package:rumah_sampah_digital/proses/proses_laporan.dart';
 
 Future prosesLaporan(context, idLaporan) {
+  /*Fungsi untuk proses laporan yg dilapor oleh petugas pos.
+    Meminta input nama petugas yg menjemput berupa String. Berbentuk widget pop up
+  */
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _dijemputOleh = '';
 
@@ -126,6 +129,7 @@ Future prosesLaporan(context, idLaporan) {
 }
 
 Future popUpProsesLaporan(context) {
+  // Pop up informasi berhasil memproses laporan pos
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -163,6 +167,7 @@ Future popUpProsesLaporan(context) {
 }
 
 Future popUpKonfirmasiTolakLaporan(context, idLaporan) {
+  /* pop up yang berfungsi untuk menanyakan menolak laporan atau batal*/
   void tolakLaporan() {
     popUpTolakLaporanBerhasil(context);
     ubahStatusLaporan(idLaporan, 'ditolak');
@@ -245,6 +250,7 @@ Future popUpKonfirmasiTolakLaporan(context, idLaporan) {
 }
 
 Future popUpTolakLaporanBerhasil(context) {
+  // Pop up untuk menginformasikan bahwa berhasil menolak laporan dari petugas pos.
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -281,7 +287,92 @@ Future popUpTolakLaporanBerhasil(context) {
       });
 }
 
-Future popUpSelesaiLaporan(context) {
+Future popUpKonfirmasiSelesaiLaporan(context, idLaporan) {
+  // Pop up untuk menanyakan laporan yakin telah selesai diproses
+
+  void selesaiLaporan() {
+    ubahStatusLaporan(idLaporan, 'selesai');
+    popUpSelesaiLaporanBerhasil(context);
+    Navigator.pop(context);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: ((context) => LaporanPosPage()),
+      ),
+    );
+  }
+
+  return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          contentPadding: EdgeInsets.symmetric(horizontal: 28, vertical: 28.0),
+          children: <Widget>[
+            SizedBox(
+              height: 54.0,
+              child: Image.asset(
+                'assets/image/question_mark.png',
+              ),
+            ),
+            SizedBox(
+              height: 22.0,
+            ),
+            Text(
+              'Yakin ingin menyelesaikan laporan? ',
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 22.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    elevation: 6,
+                    backgroundColor: Color(0xFFD90000),
+                  ),
+                  child: Text(
+                    'Batal',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 15.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    selesaiLaporan();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    elevation: 6.0,
+                    backgroundColor: Color(0xFF008305),
+                  ),
+                  child: Text('Yakin'),
+                ),
+              ],
+            ),
+          ],
+        );
+      });
+}
+
+Future popUpSelesaiLaporanBerhasil(context) {
+  // Pop up untuk menginformasikan bahwa berhasil menyelesaikan proses jemput laporan.
+
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -319,6 +410,7 @@ Future popUpSelesaiLaporan(context) {
 }
 
 Future popUpBatalProsesLaporan(context) {
+  // Pop up yang berfungsi untuk membatalkan laporan yang telah masuk tahap sedang diproses atau proses
   return showDialog(
       context: context,
       barrierDismissible: false,

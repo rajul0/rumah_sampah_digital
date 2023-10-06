@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_proses_akun.dart';
+import 'package:rumah_sampah_digital/proses/get_data.dart';
 
 class ProfilABSPage extends StatefulWidget {
   const ProfilABSPage({super.key});
@@ -9,6 +11,19 @@ class ProfilABSPage extends StatefulWidget {
 }
 
 class _ProfilABSPageState extends State<ProfilABSPage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  static Future fetchData() async {
+    // Kode untuk melakukan fetch data pada Future
+    var data;
+    // simulasi API request
+    getDataUser().then((value) => data = value);
+    await Future.delayed(Duration(seconds: 2));
+    return data;
+  }
+
+  var dataPengguna = fetchData();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +35,7 @@ class _ProfilABSPageState extends State<ProfilABSPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 50),
               SizedBox(
                 width: 150,
                 height: 150,
@@ -47,6 +62,57 @@ class _ProfilABSPageState extends State<ProfilABSPage> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(height: 10.0),
+              FutureBuilder(
+                future: dataPengguna,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    var data = snapshot.data;
+                    String noHp = data['no_hp'];
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          data['nama'],
+                          style: TextStyle(
+                            fontFamily: 'InriaSans',
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF484848),
+                          ),
+                        ),
+                        Text(
+                          data['role'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'InriaSans',
+                            fontSize: 14.0,
+                            color: Color(0xFF008305),
+                          ),
+                        ),
+                        Text(
+                          "($noHp)",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'InriaSans',
+                            fontSize: 14.0,
+                            color: Color(0xFF878585),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return SizedBox(
+                      height: 42,
+                      width: 120,
+                      child: Container(
+                        color: Color(0xFFE3E3E3),
+                      ),
+                    );
+                  }
+                },
               ),
               Spacer(),
               ElevatedButton.icon(

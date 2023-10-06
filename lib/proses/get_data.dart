@@ -1,4 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+Future<dynamic> getDataUser() async {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? user = _auth.currentUser;
+  String? _userId = user?.uid;
+
+  var userData = {};
+  // Mendapatkan referensi ke koleksi "users"
+  CollectionReference users = FirebaseFirestore.instance.collection('akun');
+
+  // Mendapatkan data dari koleksi "users"
+  QuerySnapshot querySnapshot =
+      await users.where('uid', isEqualTo: _userId).get();
+
+  // Looping untuk mendapatkan data setiap dokumen pada querySnapshot
+  querySnapshot.docs.forEach((doc) {
+    userData['nama'] = doc['nama'];
+    userData['no_hp'] = doc['no_hp'];
+    userData['uid'] = doc['uid'];
+    userData['role'] = doc['role'];
+  });
+  return userData;
+}
 
 Future<List> getLaporanPos(status) async {
   List hasil = [];

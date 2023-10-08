@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_page.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual/jual_page.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/profil.dart';
-import 'package:rumah_sampah_digital/on_develop_page.dart';
 
 class HomeNav extends StatefulWidget {
   @override
@@ -26,7 +26,7 @@ class _HomeNavState extends State<HomeNav> {
   final List<Widget> _widgetOptions = [
     // Add your widget options here
     HomePageABS(),
-    OnDevelopPage(),
+    JualBarangABS(),
     ProfilABSPage(),
   ];
 

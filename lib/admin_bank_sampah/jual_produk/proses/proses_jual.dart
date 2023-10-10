@@ -2,24 +2,34 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
-Future<void> tambahBarangJual(
-    userId, namaBarang, kategori, deskripsi, beratBarang, jenisAkun, imageFile,
-    {hargaBarang = ''}) async {
+Future<void> tambahProdukJual(
+  userId,
+  namaProduk,
+  hargaProduk,
+  kategori,
+  deskripsi,
+  beratProduk,
+  stokProduk,
+  jenisAkun,
+  imageFile,
+) async {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   var imagePath =
-      await uploadGambarBarang(jenisAkun, imageFile, kategori, namaBarang);
+      await uploadGambarBarang(jenisAkun, imageFile, kategori, namaProduk);
   // Fungsi tambah barang ke database firestore firebase
-  return _db.collection('barang').doc().set({
+  return _db.collection('produk').doc().set({
     'id_user': userId,
-    'nama_barang': namaBarang,
-    'harga_barang': hargaBarang,
+    'nama_produk': namaProduk,
+    'harga_produk': hargaProduk,
     'kategori': kategori,
     'deskripsi': deskripsi,
-    'berat_barang': beratBarang,
+    'berat_produk': beratProduk,
+    'stok_produk': stokProduk,
     'jenis_akun': jenisAkun,
-    'lokasi': 'Banda Aceh',
+    'lokasi': 'Desa Puloet',
     'url_download': imagePath,
   }).catchError((error) => print("Failed to add user: $error"));
 }

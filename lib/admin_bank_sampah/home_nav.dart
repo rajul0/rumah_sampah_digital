@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_page.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual/jual_page.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/jual_produk_page.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/profil.dart';
 
 class HomeNav extends StatefulWidget {
@@ -11,22 +11,27 @@ class HomeNav extends StatefulWidget {
 class _HomeNavState extends State<HomeNav> {
   int _selectedIndex = 0;
 
+  void initState() {
+    super.initState();
+    // Initialize _selectedIndex with the passed value
+  }
+
   final List<String> _pngIcon = [
     'assets/image/home_ic.png',
     'assets/image/sell_ic.png',
     'assets/image/profile_ic.png',
   ];
 
-  final List<String> _selectPngIcon = [
-    'assets/image/select_home_ic.png',
-    'assets/image/select_sell_ic.png',
-    'assets/image/select_profile_ic.png',
-  ];
+  // final List<String> _selectPngIcon = [
+  //   'assets/image/select_home_ic.png',
+  //   'assets/image/select_sell_ic.png',
+  //   'assets/image/select_profile_ic.png',
+  // ];
 
   final List<Widget> _widgetOptions = [
     // Add your widget options here
     HomePageABS(),
-    JualBarangABS(),
+    JualProdukABS(),
     ProfilABSPage(),
   ];
 

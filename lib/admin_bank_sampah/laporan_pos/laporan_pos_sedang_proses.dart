@@ -20,7 +20,7 @@ class _LaporanPosSedangProsesPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFEBF4F3),
       body: SingleChildScrollView(
         child: Padding(
           padding:

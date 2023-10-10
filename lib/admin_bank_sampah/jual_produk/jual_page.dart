@@ -3,30 +3,26 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_jual_barang.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual/proses/proses_jual.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_jual.dart';
 
-class JualBarangABS extends StatefulWidget {
+class JualProdukABS2 extends StatefulWidget {
   @override
-  _JualBarangABSState createState() => _JualBarangABSState();
+  _JualProdukABS2State createState() => _JualProdukABS2State();
 }
 
-class _JualBarangABSState extends State<JualBarangABS> {
+class _JualProdukABS2State extends State<JualProdukABS2> {
   // Mendapatkan data user
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   // untuk membuka file explore hp dan mengupload gambar
   File? _selectedFile;
-  String? _filePathStr;
 
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
-      allowMultiple: true,
+      // allowMultiple: true,
     );
     if (result != null) {
       setState(() => _selectedFile = File(result.files.single.path!));
@@ -36,15 +32,17 @@ class _JualBarangABSState extends State<JualBarangABS> {
   // Variabel untuk menyimpan nilai input dari form
   String? _userId;
   String _namaBarang = '';
-  int _hargaBarang = 0;
+  int _hargaProduk = 0;
   String _kategori = '';
   String _deskripsi = '';
   int _beratBarang = 0;
-  int _stokBarang = 0;
+  int _stokProduk = 0;
 
   bool _pesanHarga = false;
   bool _pesanBerat = false;
   bool _pesanStok = false;
+  bool _pesanGambar = false;
+  bool _pesanKategori = false;
 
   // Pesan berhasil upload berhasil atau tidak
   String pesanUpload = '';
@@ -58,14 +56,23 @@ class _JualBarangABSState extends State<JualBarangABS> {
     _userId = user?.uid;
     if (_formKey.currentState!.validate() && _selectedFile != null) {
       // Simpan data ke database
-      tambahBarangJual(_userId, _namaBarang, _kategori, _deskripsi,
-          _beratBarang, 'Admin Bank Sampah', _selectedFile,
-          hargaBarang: _hargaBarang);
-      popUpKonfirmasiJualBarang(context);
+      popUpKonfirmasiTambahProdukJual(
+          context,
+          _userId,
+          _namaBarang,
+          _hargaProduk,
+          _kategori,
+          _deskripsi,
+          _beratBarang,
+          _stokProduk,
+          'Admin Bank Sampah',
+          _selectedFile);
     } else {
       // Tampilkan pesan kesalahan pada setiap form yang belum diisi dengan benar
       setState(() {
         _autoValidateMode = AutovalidateMode.always;
+        _pesanGambar = true;
+        _pesanKategori = true;
       });
     }
   }
@@ -136,6 +143,7 @@ class _JualBarangABSState extends State<JualBarangABS> {
                   ),
                   onPressed: () {
                     _openFileExplorer();
+                    _pesanGambar = false;
                   },
                 ),
               ]),
@@ -148,6 +156,15 @@ class _JualBarangABSState extends State<JualBarangABS> {
                           fontFamily: 'InriaSans',
                           fontSize: 12.0))
                   : Text(''),
+              _pesanGambar
+                  ? const Text(
+                      'Gambar produk harus dipilih',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 12.0,
+                      ),
+                    )
+                  : SizedBox(),
               SizedBox(
                 height: 16.0,
               ),
@@ -182,7 +199,7 @@ class _JualBarangABSState extends State<JualBarangABS> {
                 onChanged: (value) {
                   try {
                     setState(() {
-                      _hargaBarang = int.parse(value);
+                      _hargaProduk = int.parse(value);
                     });
                   } catch (e) {
                     _pesanHarga = true;
@@ -209,6 +226,7 @@ class _JualBarangABSState extends State<JualBarangABS> {
                       onChanged: (value) {
                         setState(() {
                           _kategori = value!;
+                          _pesanKategori = false;
                         });
                       },
                       activeColor: Color(0xFF008305)),
@@ -219,6 +237,7 @@ class _JualBarangABSState extends State<JualBarangABS> {
                     onChanged: (value) {
                       setState(() {
                         _kategori = value!;
+                        _pesanKategori = false;
                       });
                     },
                     activeColor: Color(0xFF008305),
@@ -226,7 +245,7 @@ class _JualBarangABSState extends State<JualBarangABS> {
                   const Text('Produk Anorganik'),
                 ],
               ),
-              _kategori == ''
+              _pesanKategori
                   ? const Text(
                       'Kategori produk harus dipilih',
                       style: TextStyle(
@@ -274,20 +293,21 @@ class _JualBarangABSState extends State<JualBarangABS> {
               ),
               SizedBox(height: 16.0),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Stok Barang'),
+                decoration: InputDecoration(labelText: 'Stok Produk'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Stok Barang tidak boleh kosong';
-                  } else if (_pesanBerat) {
-                    return 'Stok Barang harus berupa angka';
+                    return 'Stok Produk tidak boleh kosong';
+                  } else if (_pesanStok) {
+                    return 'Stok Produk harus berupa angka';
                   }
                   return null;
                 },
                 onChanged: (value) {
                   try {
                     setState(() {
-                      _stokBarang = int.parse(value);
+                      _stokProduk = int.parse(value);
+                      _pesanStok = false;
                     });
                   } catch (e) {
                     _pesanStok = true;

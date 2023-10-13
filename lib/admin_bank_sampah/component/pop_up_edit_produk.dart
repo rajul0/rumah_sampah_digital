@@ -3,7 +3,6 @@ import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/edit_produk_p
 import 'package:rumah_sampah_digital/proses/get_data.dart';
 
 Future popUpEditProdukMasyarakat(context, idProduk) {
-  /* pop up yang berfungsi untuk menanyakan menolak Produk atau batal*/
   void konfirmasiHapusProduk() {
     popUpKonfirmasiHapusProduk(context, idProduk);
   }

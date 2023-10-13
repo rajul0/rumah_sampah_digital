@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/build_card_jual_barang.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/detail_produk_jual_page.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/jual_page.dart';
 import 'package:rumah_sampah_digital/proses/get_data.dart';
 
@@ -35,6 +36,7 @@ class _JualProdukABS extends State<JualProdukABS> {
       decimalDigits: 0,
       locale: "id_ID",
     );
+
     return Scaffold(
       backgroundColor: Color(0xFFEBF4F3),
       body: SingleChildScrollView(
@@ -165,12 +167,29 @@ class _JualProdukABS extends State<JualProdukABS> {
                           children: List.generate(
                               items.length,
                               (index) => buildCardJualProduk(
-                                  context,
-                                  items[index]['namaProduk'],
-                                  items[index]['hargaProduk'],
-                                  items[index]['lokasi'],
-                                  items[index]['urlImage'],
-                                  () {})),
+                                      context,
+                                      items[index]['namaProduk'],
+                                      items[index]['hargaProduk'],
+                                      items[index]['lokasi'],
+                                      items[index]['urlImage'], () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailProdukPage(
+                                            idDokumen: items[index]
+                                                ['idDokumen'],
+                                            namaProduk: items[index]
+                                                ['namaProduk'],
+                                            gambarProduk: items[index]
+                                                ['urlImage'],
+                                            hargaProduk: items[index]
+                                                ['hargaProduk'],
+                                            deskripsiProduk: items[index]
+                                                ['deskripsi'],
+                                            showEditButton: true),
+                                      ),
+                                    );
+                                  })),
                         );
                 }
               },

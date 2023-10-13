@@ -94,11 +94,13 @@ Future<List> getAllProduk() async {
   querySnapshot.docs.forEach((doc) {
     var data = {};
     data['idDokumen'] = doc.id;
-    data['namaProduk'] = doc['nama_produk'];
-    data['hargaProduk'] = doc['harga_produk'];
     data['idUser'] = doc['id_user'];
     data['jenisAkun'] = doc['jenis_akun'];
+    data['namaProduk'] = doc['nama_produk'];
+    data['hargaProduk'] = doc['harga_produk'];
+    data['deskripsi'] = doc['deskripsi'];
     data['kategori'] = doc['kategori'];
+    data['stokProduk'] = doc['stok_produk'];
     data['lokasi'] = doc['lokasi'];
     data['urlImage'] = doc['url_download'];
     hasil.add(data);
@@ -106,15 +108,27 @@ Future<List> getAllProduk() async {
   return hasil;
 }
 
-// data['idDokumen'] = doc.id;
-//     data['namaProduk'] = doc['nama_produk'];
-//     data['hargaProduk'] = doc['harga_produk'];
-//     data['deskripsi'] = doc['deskripsi'];
-//     data['berat_produk'] = doc['berat_produk'];
-//     data['idUser'] = doc['id_user'];
-//     data['jasaPengiriman'] = doc['jasa_pengiriman'];
-//     data['jenisAkun'] = doc['jenis_akun'];
-//     data['kategori'] = doc['kategori'];
-//     data['lokasi'] = doc['lokasi'];
-//     data['metodePembayaran'] = doc['metode_pembayaran'];
-//     data['urlDownload'] = doc['url_download'];
+Future<List> getDetailProduk(idProduk) async {
+  List hasil = [];
+
+  DocumentReference documentReference =
+      FirebaseFirestore.instance.collection('produk').doc(idProduk);
+
+  // Looping untuk mendapatkan data setiap dokumen pada querySnapshot
+  documentReference.get().then((doc) {
+    var data = {};
+    data['idDokumen'] = doc.id;
+    data['idUser'] = doc['id_user'];
+    data['jenisAkun'] = doc['jenis_akun'];
+    data['namaProduk'] = doc['nama_produk'];
+    data['hargaProduk'] = doc['harga_produk'];
+    data['beratProduk'] = doc['berat_produk'];
+    data['deskripsi'] = doc['deskripsi'];
+    data['kategori'] = doc['kategori'];
+    data['stokProduk'] = doc['stok_produk'];
+    data['lokasi'] = doc['lokasi'];
+    data['urlImage'] = doc['url_download'];
+    hasil.add(data);
+  });
+  return hasil;
+}

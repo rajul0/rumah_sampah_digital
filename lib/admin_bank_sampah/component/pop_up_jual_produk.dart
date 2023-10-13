@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/jual_produk_page.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/daftar_produk_page.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_jual.dart';
 
 Future popUpKonfirmasiTambahProdukJual(

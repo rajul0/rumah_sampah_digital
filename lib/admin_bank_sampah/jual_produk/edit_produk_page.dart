@@ -6,18 +6,45 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_jual_produk.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_jual.dart';
+import 'package:rumah_sampah_digital/proses/get_data.dart';
 
-class JualProdukABS2 extends StatefulWidget {
+class EditProdukPage extends StatefulWidget {
+  final idProduk;
+  final String namaProduk;
+  final String hargaProduk;
+  final String kategori;
+  final String deskripsi;
+  final String beratProduk;
+  final String stokProduk;
+
+  const EditProdukPage({
+    Key? key,
+    required this.idProduk,
+    required this.namaProduk,
+    required this.hargaProduk,
+    required this.kategori,
+    required this.deskripsi,
+    required this.beratProduk,
+    required this.stokProduk,
+  }) : super(key: key);
+
   @override
-  _JualProdukABS2State createState() => _JualProdukABS2State();
+  _EditProdukPageState createState() => _EditProdukPageState();
 }
 
-class _JualProdukABS2State extends State<JualProdukABS2> {
+class _EditProdukPageState extends State<EditProdukPage> {
   // Mendapatkan data user
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // untuk membuka file explore hp dan mengupload gambar
+  // untuk menyimpan gambar yang diambil dari file explorer hp
   File? _selectedFile;
+
+  // mengambil data produk untuk dimasukkan kedalam form
+  Future<List<dynamic>> fetchData() async {
+    var hasil = await getDetailProduk(widget.idProduk);
+    await Future.delayed(Duration(seconds: 2));
+    return hasil;
+  }
 
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -31,11 +58,11 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
 
   // Variabel untuk menyimpan nilai input dari form
   String? _userId;
-  String _namaBarang = '';
+  String _namaProduk = '';
   int _hargaProduk = 0;
   String _kategori = '';
   String _deskripsi = '';
-  int _beratBarang = 0;
+  int _beratProduk = 0;
   int _stokProduk = 0;
 
   bool _pesanHarga = false;
@@ -50,31 +77,25 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
   final _formKey = GlobalKey<FormState>();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
-  void _submitForm() {
-    // Fungsi untuk mengirimkan data form ke server atau melakukan tindakan lainnya
-    User? user = _auth.currentUser;
-    _userId = user?.uid;
-    if (_formKey.currentState!.validate() && _selectedFile != null) {
-      // Simpan data ke database
-      popUpKonfirmasiTambahProdukJual(
-          context,
-          _userId,
-          _namaBarang,
-          _hargaProduk,
-          _kategori,
-          _deskripsi,
-          _beratBarang,
-          _stokProduk,
-          'Admin Bank Sampah',
-          _selectedFile);
-    } else {
-      // Tampilkan pesan kesalahan pada setiap form yang belum diisi dengan benar
-      setState(() {
-        _autoValidateMode = AutovalidateMode.always;
-        _pesanGambar = true;
-        _pesanKategori = true;
-      });
-    }
+  TextEditingController _controllerNama = TextEditingController();
+  TextEditingController _controllerHarga = TextEditingController();
+  // TextEditingController _controllerKategori = TextEditingController();
+  TextEditingController _controllerDeskripsi = TextEditingController();
+  TextEditingController _controllerBerat = TextEditingController();
+  TextEditingController _controllerStok = TextEditingController();
+
+  void _simpanPerubahan() {}
+
+  // fungsi yg dijalnkan sekali saat halaman diload
+  void initState() {
+    super.initState();
+    _controllerNama.text = widget.namaProduk;
+    _controllerHarga.text = widget.hargaProduk;
+    _controllerDeskripsi.text = widget.deskripsi;
+    _controllerBerat.text = widget.beratProduk;
+    _controllerStok.text = widget.stokProduk;
+    _kategori = widget.kategori;
+    super.initState();
   }
 
   @override
@@ -106,7 +127,7 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
                     fontFamily: 'InriaSans'),
               ),
               onPressed: () {
-                _submitForm();
+                // _submitForm();
               },
             ),
           )
@@ -169,6 +190,7 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
                 height: 16.0,
               ),
               TextFormField(
+                controller: _controllerNama,
                 decoration: const InputDecoration(
                   labelText: 'Nama produk',
                 ),
@@ -180,12 +202,13 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
                 },
                 onChanged: (value) {
                   setState(() {
-                    _namaBarang = value;
+                    _namaProduk = value;
                   });
                 },
               ),
               const SizedBox(height: 16.0),
               TextFormField(
+                controller: _controllerHarga,
                 decoration: const InputDecoration(labelText: 'Harga Produk'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -255,6 +278,7 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
                     )
                   : SizedBox(),
               TextFormField(
+                controller: _controllerDeskripsi,
                 decoration: InputDecoration(labelText: 'Deskripsi'),
                 maxLines: 3,
                 validator: (value) {
@@ -271,20 +295,21 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
               ),
               SizedBox(height: 16.0),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Berat Barang (gram)'),
+                controller: _controllerBerat,
+                decoration: InputDecoration(labelText: 'Berat Produk (gram)'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Berat barang tidak boleh kosong';
+                    return 'Berat Produk tidak boleh kosong';
                   } else if (_pesanBerat) {
-                    return 'Berat barang harus berupa angka';
+                    return 'Berat Produk harus berupa angka';
                   }
                   return null;
                 },
                 onChanged: (value) {
                   try {
                     setState(() {
-                      _beratBarang = int.parse(value);
+                      _beratProduk = int.parse(value);
                     });
                   } catch (e) {
                     _pesanBerat = true;
@@ -293,6 +318,7 @@ class _JualProdukABS2State extends State<JualProdukABS2> {
               ),
               SizedBox(height: 16.0),
               TextFormField(
+                controller: _controllerStok,
                 decoration: InputDecoration(labelText: 'Stok Produk'),
                 keyboardType: TextInputType.number,
                 validator: (value) {

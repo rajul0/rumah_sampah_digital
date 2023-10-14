@@ -4,8 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_edit_produk.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_jual_produk.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_jual.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_produk.dart';
 import 'package:rumah_sampah_digital/proses/get_data.dart';
 
 class EditProdukPage extends StatefulWidget {
@@ -68,7 +69,6 @@ class _EditProdukPageState extends State<EditProdukPage> {
   bool _pesanHarga = false;
   bool _pesanBerat = false;
   bool _pesanStok = false;
-  bool _pesanGambar = false;
   bool _pesanKategori = false;
 
   // Pesan berhasil upload berhasil atau tidak
@@ -84,7 +84,32 @@ class _EditProdukPageState extends State<EditProdukPage> {
   TextEditingController _controllerBerat = TextEditingController();
   TextEditingController _controllerStok = TextEditingController();
 
-  void _simpanPerubahan() {}
+  void _simpanPerubahan() {
+    // Fungsi untuk mengirimkan data form ke server atau melakukan tindakan lainnya
+    User? user = _auth.currentUser;
+    _userId = user?.uid;
+    if (_formKey.currentState!.validate()) {
+      // Simpan data ke database
+      popUpKonfirmasiSimpanEditProduk(
+          context,
+          widget.idProduk,
+          _userId,
+          _namaProduk,
+          _hargaProduk,
+          _kategori,
+          _deskripsi,
+          _beratProduk,
+          _stokProduk,
+          'Admin Bank Sampah',
+          _selectedFile);
+    } else {
+      // Tampilkan pesan kesalahan pada setiap form yang belum diisi dengan benar
+      setState(() {
+        _autoValidateMode = AutovalidateMode.always;
+        _pesanKategori = true;
+      });
+    }
+  }
 
   // fungsi yg dijalnkan sekali saat halaman diload
   void initState() {
@@ -94,17 +119,33 @@ class _EditProdukPageState extends State<EditProdukPage> {
     _controllerDeskripsi.text = widget.deskripsi;
     _controllerBerat.text = widget.beratProduk;
     _controllerStok.text = widget.stokProduk;
+
+    // atur variabel dengan nilai yg sudah ada di database
+    _namaProduk = widget.namaProduk;
+    _hargaProduk = int.parse(widget.hargaProduk);
+    _deskripsi = widget.deskripsi;
+    _beratProduk = int.parse(widget.beratProduk);
+    _stokProduk = int.parse(widget.stokProduk);
     _kategori = widget.kategori;
     super.initState();
   }
 
   @override
+  void dispose() {
+    _controllerNama.dispose();
+    _controllerHarga.dispose();
+    _controllerDeskripsi.dispose();
+    _controllerBerat.dispose();
+    _controllerStok.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFEBF4F3),
       appBar: AppBar(
         backgroundColor: Color(0xFFEBF4F3),
-        title: const Text('Form Produk',
+        title: const Text('Edit Produk',
             style: TextStyle(
               fontSize: 18,
               fontFamily: 'InriaSans',
@@ -127,7 +168,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
                     fontFamily: 'InriaSans'),
               ),
               onPressed: () {
-                // _submitForm();
+                _simpanPerubahan();
               },
             ),
           )
@@ -164,7 +205,6 @@ class _EditProdukPageState extends State<EditProdukPage> {
                   ),
                   onPressed: () {
                     _openFileExplorer();
-                    _pesanGambar = false;
                   },
                 ),
               ]),
@@ -177,15 +217,6 @@ class _EditProdukPageState extends State<EditProdukPage> {
                           fontFamily: 'InriaSans',
                           fontSize: 12.0))
                   : Text(''),
-              _pesanGambar
-                  ? const Text(
-                      'Gambar produk harus dipilih',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 12.0,
-                      ),
-                    )
-                  : SizedBox(),
               SizedBox(
                 height: 16.0,
               ),
@@ -222,7 +253,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
                 onChanged: (value) {
                   try {
                     setState(() {
-                      _hargaProduk = int.parse(value);
+                      _hargaProduk = int.tryParse(_controllerHarga.text) ?? 0;
                     });
                   } catch (e) {
                     _pesanHarga = true;
@@ -309,7 +340,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
                 onChanged: (value) {
                   try {
                     setState(() {
-                      _beratProduk = int.parse(value);
+                      _beratProduk = int.tryParse(_controllerBerat.text) ?? 0;
                     });
                   } catch (e) {
                     _pesanBerat = true;
@@ -332,7 +363,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
                 onChanged: (value) {
                   try {
                     setState(() {
-                      _stokProduk = int.parse(value);
+                      _stokProduk = int.tryParse(_controllerStok.text) ?? 0;
                       _pesanStok = false;
                     });
                   } catch (e) {

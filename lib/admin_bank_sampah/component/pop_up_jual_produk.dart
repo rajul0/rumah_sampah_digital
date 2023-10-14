@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/daftar_produk_page.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_jual.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_produk.dart';
 
 Future popUpKonfirmasiTambahProdukJual(
   context,
@@ -77,7 +76,7 @@ Future popUpKonfirmasiTambahProdukJual(
                         stokProduk,
                         jenisAkun,
                         imageFile);
-                    popUpKBerhasilTambahProduk(context);
+                    popUpBerhasilTambahProduk(context);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -95,7 +94,7 @@ Future popUpKonfirmasiTambahProdukJual(
       });
 }
 
-Future popUpKBerhasilTambahProduk(context) {
+Future popUpBerhasilTambahProduk(context) {
   return showDialog(
       context: context,
       barrierDismissible: false,

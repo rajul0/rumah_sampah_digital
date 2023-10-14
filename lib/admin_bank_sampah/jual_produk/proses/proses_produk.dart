@@ -49,3 +49,49 @@ Future uploadGambarBarang(
     print(e);
   }
 }
+
+Future<void> editProdukJual(
+  idProduk,
+  userId,
+  namaProduk,
+  hargaProduk,
+  kategori,
+  deskripsi,
+  beratProduk,
+  stokProduk,
+  jenisAkun,
+  imageFile,
+) async {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  if (imageFile != null) {
+    var imagePath =
+        await uploadGambarBarang(jenisAkun, imageFile, kategori, namaProduk);
+    _db.collection('produk').doc(idProduk).update({
+      'url_download': imagePath,
+    });
+  }
+
+  // Fungsi tambah barang ke database firestore firebase
+  return _db.collection('produk').doc(idProduk).update({
+    'id_user': userId,
+    'nama_produk': namaProduk,
+    'harga_produk': hargaProduk,
+    'kategori': kategori,
+    'deskripsi': deskripsi,
+    'berat_produk': beratProduk,
+    'stok_produk': stokProduk,
+    'jenis_akun': jenisAkun,
+    'lokasi': 'Desa Puloet',
+  }).catchError((error) => print("Failed to add user: $error"));
+}
+
+Future<void> deleteProduk(idProduk) async {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  try {
+    await _db.collection('produk').doc(idProduk).delete();
+    print('Dokumen berhasil dihapus');
+  } catch (e) {
+    print('Error saat menghapus dokumen: $e');
+  }
+}

@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_jual_produk.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_jual.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/proses/proses_produk.dart';
 
 class JualProdukABS2 extends StatefulWidget {
   @override

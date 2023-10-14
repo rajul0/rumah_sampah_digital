@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'masyarakat/register_page.dart';
 
@@ -47,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
       // mendapatkan sebagai akunnya
       User? user = auth.currentUser;
       String? role = user?.displayName;
-      print(role);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
       if (role == loginSebagai) {
         Navigator.push(
           context,

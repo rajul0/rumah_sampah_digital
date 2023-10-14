@@ -155,7 +155,7 @@ Future popUpProsesLaporan(context) {
             ),
             ElevatedButton(
               style:
-                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF0095DA)),
+                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF008305)),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -276,7 +276,7 @@ Future popUpTolakLaporanBerhasil(context) {
             ),
             ElevatedButton(
               style:
-                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF0095DA)),
+                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF008305)),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -398,7 +398,7 @@ Future popUpSelesaiLaporanBerhasil(context) {
             ),
             ElevatedButton(
               style:
-                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF0095DA)),
+                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF008305)),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -436,7 +436,7 @@ Future popUpBatalProsesLaporan(context) {
             ),
             ElevatedButton(
               style:
-                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF0095DA)),
+                  ElevatedButton.styleFrom(backgroundColor: Color(0xFF008305)),
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.of(context).pushReplacement(

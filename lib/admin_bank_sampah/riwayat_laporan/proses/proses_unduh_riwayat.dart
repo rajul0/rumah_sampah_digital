@@ -1,9 +1,18 @@
 import 'dart:io';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pdf/widgets.dart' as pdfLib;
 
-Future<List<Map<String, dynamic>>?> getDataFromFirestore(status) async {
+void openPdfFile(String pdfPath) async {
+  print('asdasda' + pdfPath);
+  final result = await OpenFile.open(pdfPath);
+  if (result.type != ResultType.done) {
+    print('Gagal membuka file PDF');
+  }
+}
+
+Future<List<Map<String, dynamic>>?> getDataLaporanSelesai(status) async {
   try {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('laporan_pos')
@@ -28,7 +37,7 @@ pdfLib.Document createPdfDocument(List<Map<String, dynamic>> data) {
       build: (context) {
         return pdfLib.Column(
           children: data.map((item) {
-            return pdfLib.Text(item['nama'] ?? '');
+            return pdfLib.Text(item['tanggal_selesai'] ?? '');
           }).toList(),
         );
       },
@@ -47,4 +56,5 @@ Future<void> savePdfToLocal(pdfLib.Document pdf) async {
   final file = File(pdfPath);
 
   await file.writeAsBytes(await pdf.save());
+  openPdfFile(file.path);
 }

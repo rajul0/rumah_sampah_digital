@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/component/build_card_jual_barang.dart';
+import 'package:rumah_sampah_digital/admin_bank_sampah/component/build_card_jual_produk.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/detail_produk_jual_page.dart';

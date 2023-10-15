@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
+import 'package:rumah_sampah_digital/masyarakat/home_nav_masyarakat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'masyarakat/register_page.dart';
@@ -50,11 +51,23 @@ class _LoginPageState extends State<LoginPage> {
       String? role = user?.displayName;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
+
       if (role == loginSebagai) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeNav()),
-        );
+        if (role == 'Admin Bank Sampah') {
+          await prefs.setString('role', role!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeNav()),
+          );
+        } else if (role == 'Masyarakat') {
+          await prefs.setString('role', role!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeNavMasyarakat(),
+            ),
+          );
+        }
       } else if (role == 'Admin Bank Sampah' &&
           loginSebagai == 'Admin Pos Sampah') {
         _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';

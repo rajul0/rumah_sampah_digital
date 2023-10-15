@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
+import 'package:rumah_sampah_digital/masyarakat/home_nav_masyarakat.dart';
 import 'package:rumah_sampah_digital/welcome_page.dart';
 import 'dart:core';
 
@@ -11,7 +12,11 @@ void main() async {
   await Firebase.initializeApp();
   await loadFonts();
   bool isLoggedIn = await checkLoginStatus();
-  runApp(MyApp(isLoggedIn: isLoggedIn));
+  String? role = await checkRole();
+  runApp(MyApp(
+    isLoggedIn: isLoggedIn,
+    role: role,
+  ));
 }
 
 Future<bool> checkLoginStatus() async {
@@ -20,20 +25,53 @@ Future<bool> checkLoginStatus() async {
   return user != null;
 }
 
+Future<String?> checkRole() async {
+  // hanya butuh sekali login
+  User? user = FirebaseAuth.instance.currentUser;
+  String? role = user?.displayName;
+  return role;
+}
+
 class MyApp extends StatelessWidget {
   var isLoggedIn;
+  var role;
 
-  MyApp({required this.isLoggedIn});
+  MyApp({
+    required this.isLoggedIn,
+    required this.role,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-      ),
-      home: isLoggedIn ? HomeNav() : WelcomePage(),
-    );
+    if (role == 'Admin Bank Sampah' && isLoggedIn) {
+      return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+          ),
+          home: HomeNav());
+    } else if (role == 'Admin Pos Sampah' && isLoggedIn) {
+      return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+          ),
+          home: HomeNavMasyarakat());
+    } else if (role == 'Masyarakat' && isLoggedIn) {
+      return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+          ),
+          home: HomeNavMasyarakat());
+    } else {
+      return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+          ),
+          home: WelcomePage());
+    }
   }
 }
 

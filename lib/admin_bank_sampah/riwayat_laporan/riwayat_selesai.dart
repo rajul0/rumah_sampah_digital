@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/card_riwayat_laporan_pos.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/proses/proses_unduh_riwayat.dart';
 import 'package:rumah_sampah_digital/proses/get_data.dart';
+import 'package:open_file/open_file.dart';
 
 class RiwayatDiterima extends StatefulWidget {
   const RiwayatDiterima({super.key});
@@ -31,7 +32,7 @@ class _RiwayatDiterimaState extends State<RiwayatDiterima> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF008305)),
                 onPressed: () async {
-                  final data = await getDataFromFirestore('selesai');
+                  final data = await getDataLaporanSelesai('selesai');
                   if (data != null) {
                     final pdf = createPdfDocument(data);
                     await savePdfToLocal(pdf);

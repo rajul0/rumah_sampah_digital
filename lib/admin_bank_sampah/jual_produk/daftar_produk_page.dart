@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/build_card_jual_produk.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/detail_produk_jual_page.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/jual_produk/jual_page.dart';
 import 'package:rumah_sampah_digital/proses/get_data.dart';
@@ -14,8 +11,6 @@ class JualProdukABS extends StatefulWidget {
 }
 
 class _JualProdukABS extends State<JualProdukABS> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   Future<List<dynamic>> fetchData() async {
     return await getAllProduk();
   }
@@ -31,12 +26,6 @@ class _JualProdukABS extends State<JualProdukABS> {
 
   @override
   Widget build(BuildContext context) {
-    var currencyFormat = NumberFormat.currency(
-      symbol: "Rp ",
-      decimalDigits: 0,
-      locale: "id_ID",
-    );
-
     return Scaffold(
       backgroundColor: Color(0xFFEBF4F3),
       body: SingleChildScrollView(

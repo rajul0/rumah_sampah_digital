@@ -17,9 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   bool _passwordVisible = true;
-  bool _daftarVisible = false;
 
-  String _errorRegisMessage = '';
   bool _statusNoHp = false;
 
   String _fullName = '';

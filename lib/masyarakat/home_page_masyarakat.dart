@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/masyarakat/component/build_card_produk.dart';
 import 'package:rumah_sampah_digital/masyarakat/detail_produk_page.dart';
 import 'package:rumah_sampah_digital/masyarakat/proses/get_data.dart';
@@ -12,20 +10,12 @@ class HomePageMasyarakat extends StatefulWidget {
 }
 
 class _HomePageMasyarakat extends State<HomePageMasyarakat> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   Future<List<dynamic>> fetchData() async {
     return await getAllProdukMasyarakat();
   }
 
   @override
   Widget build(BuildContext context) {
-    var currencyFormat = NumberFormat.currency(
-      symbol: "Rp ",
-      decimalDigits: 0,
-      locale: "id_ID",
-    );
-
     return Scaffold(
       backgroundColor: Color(0xFFEBF4F3),
       body: SingleChildScrollView(

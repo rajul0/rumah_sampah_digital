@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,8 +27,6 @@ class DetailProdukMasyarakatPage extends StatefulWidget {
 
 class _DetailProdukMasyarakatPageState
     extends State<DetailProdukMasyarakatPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   void openWhatsApp(noHpAdmin) async {
     final pesan = 'Halo, ini pesan dari aplikasi Flutter';
 

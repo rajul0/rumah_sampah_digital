@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_edit_produk.dart';
@@ -26,8 +25,6 @@ class DetailProdukPage extends StatefulWidget {
 }
 
 class _DetailProdukPageState extends State<DetailProdukPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     var currencyFormat = NumberFormat.currency(

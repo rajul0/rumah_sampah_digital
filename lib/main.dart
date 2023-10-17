@@ -34,6 +34,7 @@ Future<String?> checkRole() async {
   return role;
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   var isLoggedIn;
   var role;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/laporan_pos_APS/laporan_pos_APS.dart';
 
 class HomePageAPS extends StatefulWidget {
   const HomePageAPS({super.key});
@@ -65,11 +66,11 @@ class _HomePageAPSState extends State<HomePageAPS> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => LaporanPosPage()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LaporanPosAPSPage()),
+                      );
                     },
                     child: Container(
                       width: 55.0,

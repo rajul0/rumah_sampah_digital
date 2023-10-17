@@ -5,7 +5,7 @@ Future<dynamic> getDataUser() async {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user = _auth.currentUser;
   String? _userId = user?.uid;
-
+  print(_userId);
   var userData = {};
   // Mendapatkan referensi ke koleksi "users"
   CollectionReference users = FirebaseFirestore.instance.collection('akun');

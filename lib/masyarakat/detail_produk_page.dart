@@ -36,8 +36,8 @@ class _DetailProdukMasyarakatPageState
     final url =
         'whatsapp://send?phone=+62$noHpAdmin&text=${Uri.encodeComponent(pesan)}';
 
-    if (await canLaunchUrl(Uri(path: url))) {
-      await launchUrl(Uri(path: url));
+    if (await canLaunch(url)) {
+      await launch(url);
     } else {
       print('Tidak dapat membuka WhatsApp');
     }

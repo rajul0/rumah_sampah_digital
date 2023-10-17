@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/home_nav_aps.dart';
 import 'package:rumah_sampah_digital/masyarakat/home_nav_masyarakat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,12 +53,21 @@ class _LoginPageState extends State<LoginPage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
 
+      print(role);
       if (role == loginSebagai) {
         if (role == 'Admin Bank Sampah') {
           await prefs.setString('role', role!);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeNav()),
+          );
+        } else if (role == 'Admin Pos Sampah') {
+          await prefs.setString('role', role!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeNavAPS(),
+            ),
           );
         } else if (role == 'Masyarakat') {
           await prefs.setString('role', role!);
@@ -70,18 +80,30 @@ class _LoginPageState extends State<LoginPage> {
         }
       } else if (role == 'Admin Bank Sampah' &&
           loginSebagai == 'Admin Pos Sampah') {
-        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        setState() {
+          _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        }
       } else if (role == 'Admin Bank Sampah' && loginSebagai == 'Masyarakat') {
-        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        setState() {
+          _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        }
       } else if (role == 'Admin Pos Sampah' &&
           loginSebagai == 'Admin Bank Sampah') {
-        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        setState() {
+          _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        }
       } else if (role == 'Admin Pos Sampah' && loginSebagai == 'Masyarakat') {
-        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        setState() {
+          _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        }
       } else if (role == 'Masyarakat' && loginSebagai == 'Admin Bank Sampah') {
-        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        setState() {
+          _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        }
       } else if (role == 'Masyarakat' && loginSebagai == 'Admin Pos Sampah') {
-        _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        setState() {
+          _errorLoginMessage = 'Akun ini terdaftar sebagai ${role}';
+        }
       }
     } on FirebaseAuthException catch (error) {
       setState(() {

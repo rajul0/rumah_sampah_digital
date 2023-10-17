@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/home_nav.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/home_nav_aps.dart';
 import 'package:rumah_sampah_digital/masyarakat/home_nav_masyarakat.dart';
 import 'package:rumah_sampah_digital/welcome_page.dart';
 import 'dart:core';
@@ -29,6 +30,7 @@ Future<String?> checkRole() async {
   // hanya butuh sekali login
   User? user = FirebaseAuth.instance.currentUser;
   String? role = user?.displayName;
+  print(role);
   return role;
 }
 
@@ -56,7 +58,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: 'Poppins',
           ),
-          home: HomeNavMasyarakat());
+          home: HomeNavAPS());
     } else if (role == 'Masyarakat' && isLoggedIn) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -35,9 +35,7 @@ class _RiwayatLaporanDiterimaAPSPageState
                 onPressed: () async {
                   final data = await getDataLaporanSelesaiAPS('selesai');
                   if (data != null) {
-                    final pdf = createPdfDocument(data);
-                    await savePdfToLocal(pdf);
-                    print('PDF berhasil dibuat dan disimpan.');
+                    generatePDF();
                   }
                 },
                 child: Text('Unduh PDF'),

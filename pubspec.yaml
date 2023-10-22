@@ -49,6 +49,8 @@ dependencies:
   url_launcher: ^6.1.14
   animated_text_kit: ^4.2.2
   syncfusion_flutter_pdf: ^23.1.41
+  image_picker: ^1.0.4
+  camera: ^0.10.5+5
 
 dev_dependencies:
   flutter_test:

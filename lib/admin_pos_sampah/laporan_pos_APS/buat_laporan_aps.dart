@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/component/pop_up_laporan_APS.dart';
@@ -11,8 +12,6 @@ class BuatLaporanAPSPage extends StatefulWidget {
 
 class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  // untuk membuka file explore hp dan mengupload gambar
-  File? _selectedFile;
 
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -24,14 +23,31 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
     }
   }
 
+  Future<void> _ambilGambar() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      setState(() {
+        _imageCamera = File(image!.path);
+      });
+      // Handle the captured image, e.g., display it or save it.
+    } catch (e) {
+      print(e);
+    }
+  }
+
   List<String> listTPS = [
+    // daftar tps yang ada
     '1',
     '2',
     '3',
   ];
+
   // Variabel untuk menyimpan nilai input dari form
   var _tps;
   String _catatan = '';
+  File? _selectedFile;
+  File? _imageCamera;
+  bool fileDipilih = false;
 
   // Pesan berhasil upload berhasil atau tidak
   String pesanUpload = '';
@@ -99,7 +115,7 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
                 ),
                 TextButton(
                   child: const Text(
-                    'Tambah',
+                    'Pilih',
                     style: TextStyle(
                         color: Color(0xFF008305),
                         fontSize: 18.0,
@@ -109,6 +125,21 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
                   onPressed: () {
                     _openFileExplorer();
                     _pesanGambar = false;
+                    fileDipilih = true;
+                  },
+                ),
+                TextButton(
+                  child: const Text(
+                    'Ambil',
+                    style: TextStyle(
+                        color: Color(0xFF008305),
+                        fontSize: 18.0,
+                        fontFamily: 'InriaSans'),
+                  ),
+                  onPressed: () {
+                    _ambilGambar();
+                    _pesanGambar = false;
+                    fileDipilih = true;
                   },
                 ),
               ]),

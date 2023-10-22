@@ -14,6 +14,7 @@ void main() async {
   await loadFonts();
   bool isLoggedIn = await checkLoginStatus();
   String? role = await checkRole();
+
   runApp(MyApp(
     isLoggedIn: isLoggedIn,
     role: role,

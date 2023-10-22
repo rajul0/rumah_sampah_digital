@@ -107,7 +107,8 @@ class _LoginPageState extends State<LoginPage> {
       }
     } on FirebaseAuthException catch (error) {
       setState(() {
-        _errorLoginMessage = 'Email atau password yang anda masukkan salah';
+        _errorLoginMessage =
+            'Email atau password yang anda masukkan salah or $error';
       });
     }
   }

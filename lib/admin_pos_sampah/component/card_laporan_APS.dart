@@ -3,7 +3,30 @@ import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/component/pop_up_laporan_APS.dart';
 
 Widget laporanPosMenungguAPSCard(BuildContext context, String namaTps,
-    String catatan, DateTime date, image, idLaporan) {
+    String catatan, DateTime date, urlImage, idLaporan) {
+  void _showImagePopup(BuildContext context, urlImage) {
+    // Fungsi untuk popup image
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Image.network(urlImage), // Gantilah dengan path gambar Anda
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Tutup',
+                style: TextStyle(color: Color(0xFF008305)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // DateTime dateParse = DateFormat('yyyy-MM-dd HH:mm:ss SSS').parse(date);
   String formatedDate = DateFormat('yyyy-MM-dd').format(date);
   String formatedTime = DateFormat('HH:mm').format(date);
@@ -73,13 +96,18 @@ Widget laporanPosMenungguAPSCard(BuildContext context, String namaTps,
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Container(
-                    width: 250.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0),
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () {
+                      _showImagePopup(context, urlImage);
+                    },
+                    child: SizedBox(
+                      height: 160.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.network(
+                          urlImage,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),

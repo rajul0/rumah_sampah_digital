@@ -53,7 +53,7 @@ class _LaporanPosMenungguPageState extends State<LaporanPosMenungguPage> {
                                       items[index]['alamat'],
                                       items[index]['catatan'],
                                       items[index]['tanggal_lapor'],
-                                      'assets/dummy_image/pos_sampah_a.png',
+                                      items[index]['imgPath'],
                                       items[index]['id'],
                                     )));
                   }

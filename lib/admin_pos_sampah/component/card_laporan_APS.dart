@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rumah_sampah_digital/admin_pos_sampah/component/pop_up_laporan.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/component/pop_up_laporan_APS.dart';
 
 Widget laporanPosMenungguAPSCard(BuildContext context, String namaTps,
     String catatan, DateTime date, image, idLaporan) {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/home_nav_aps.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/laporan_pos_APS/buat_laporan_aps.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/laporan_pos_APS/laporan_pos_menunggu.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/laporan_pos_APS/laporan_pos_sedang_proses.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 class LaporanPosAPSPage extends StatefulWidget {
   @override
@@ -27,15 +25,6 @@ class _LaporanPosAPSPageState extends State<LaporanPosAPSPage>
     // Hapus TabController saat widget di dispose
     _tabController.dispose();
     super.dispose();
-  }
-
-  void testFormatedDate() {
-    DateTime date = DateTime.now();
-    String formattedDateTime = date.toString();
-    DateTime formattedStringToDate = DateTime.parse(formattedDateTime);
-    print('format asli: ${date} ');
-    print('formate to string: ' + formattedDateTime);
-    print('String to date time: ${formattedStringToDate}');
   }
 
   @override
@@ -101,12 +90,11 @@ class _LaporanPosAPSPageState extends State<LaporanPosAPSPage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.of(context).push(
-          //   _buildPageRoute(
-          //     BuatLaporanAPSPage(),
-          //   ),
-          // );
-          testFormatedDate();
+          Navigator.of(context).push(
+            _buildPageRoute(
+              BuatLaporanAPSPage(),
+            ),
+          );
         },
         child: Icon(Icons.add), // Menambahkan ikon plus ke tombol
         backgroundColor: Color(

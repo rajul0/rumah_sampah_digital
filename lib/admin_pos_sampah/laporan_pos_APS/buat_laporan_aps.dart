@@ -25,10 +25,14 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
 
   Future<void> _ambilGambar() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      setState(() {
-        _imageCamera = File(image!.path);
-      });
+      final result = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+      );
+      if (result != null) {
+        setState(() {
+          _selectedFile = File(result!.path);
+        });
+      }
       // Handle the captured image, e.g., display it or save it.
     } catch (e) {
       print(e);
@@ -47,7 +51,7 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
   String _catatan = '';
   File? _selectedFile;
   File? _imageCamera;
-  bool fileDipilih = false;
+  bool _fileGambarDipilih = false;
 
   // Pesan berhasil upload berhasil atau tidak
   String pesanUpload = '';
@@ -113,35 +117,59 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold),
                 ),
-                TextButton(
-                  child: const Text(
-                    'Pilih',
-                    style: TextStyle(
-                        color: Color(0xFF008305),
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'InriaSans'),
-                  ),
-                  onPressed: () {
-                    _openFileExplorer();
-                    _pesanGambar = false;
-                    fileDipilih = true;
-                  },
-                ),
-                TextButton(
-                  child: const Text(
-                    'Ambil',
-                    style: TextStyle(
-                        color: Color(0xFF008305),
-                        fontSize: 18.0,
-                        fontFamily: 'InriaSans'),
-                  ),
-                  onPressed: () {
-                    _ambilGambar();
-                    _pesanGambar = false;
-                    fileDipilih = true;
-                  },
-                ),
+                _fileGambarDipilih
+                    ? SizedBox(height: 0.0)
+                    : TextButton(
+                        child: const Text(
+                          'Pilih',
+                          style: TextStyle(
+                              color: Color(0xFF008305),
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'InriaSans'),
+                        ),
+                        onPressed: () {
+                          _openFileExplorer();
+                          _pesanGambar = false;
+                          _fileGambarDipilih = true;
+                        },
+                      ),
+                _fileGambarDipilih
+                    ? TextButton(
+                        child: const Text(
+                          'hapus',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 18.0,
+                              fontFamily: 'InriaSans'),
+                        ),
+                        onPressed: () {
+                          setState() {
+                            _pesanGambar = false;
+                            _fileGambarDipilih = false;
+                            _selectedFile = null;
+                          }
+
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => BuatLaporanAPSPage()),
+                          );
+                        },
+                      )
+                    : TextButton(
+                        child: const Text(
+                          'Ambil',
+                          style: TextStyle(
+                              color: Color(0xFF008305),
+                              fontSize: 18.0,
+                              fontFamily: 'InriaSans'),
+                        ),
+                        onPressed: () {
+                          _ambilGambar();
+                          _pesanGambar = false;
+                          _fileGambarDipilih = true;
+                        },
+                      ),
               ]),
               _selectedFile != null
                   ? Text(_selectedFile!.path,

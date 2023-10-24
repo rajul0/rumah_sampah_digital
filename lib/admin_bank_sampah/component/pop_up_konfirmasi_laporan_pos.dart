@@ -172,11 +172,10 @@ Future popUpKonfirmasiTolakLaporan(context, idLaporan) {
     popUpTolakLaporanBerhasil(context);
     ubahStatusLaporan(idLaporan, 'ditolak');
     Navigator.pop(context);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: ((context) => LaporanPosPage()),
-      ),
-    );
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => LaporanPosPage()),
+        (route) => false);
   }
 
   return showDialog(

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/component/pop_up_proses_akun.dart';
+import 'package:rumah_sampah_digital/pop_up_proses_akun.dart';
 import 'package:rumah_sampah_digital/proses/get_data.dart';
 
 class ProfilABSPage extends StatefulWidget {
@@ -69,6 +69,7 @@ class _ProfilABSPageState extends State<ProfilABSPage> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data;
+
                     String noHp = data['no_hp'];
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,

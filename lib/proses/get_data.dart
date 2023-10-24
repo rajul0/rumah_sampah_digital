@@ -20,6 +20,7 @@ Future<dynamic> getDataUser() async {
     userData['no_hp'] = doc['no_hp'];
     userData['uid'] = doc['uid'];
     userData['role'] = doc['role'];
+    userData['tps'] = doc['tps'];
   });
   return userData;
 }

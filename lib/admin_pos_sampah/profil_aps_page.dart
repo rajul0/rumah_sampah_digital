@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rumah_sampah_digital/pop_up_proses_akun.dart';
+import 'package:rumah_sampah_digital/proses/get_data.dart';
 
 class ProfilAPSPage extends StatefulWidget {
   const ProfilAPSPage({super.key});
@@ -13,11 +15,11 @@ class _ProfilAPSPageState extends State<ProfilAPSPage> {
 
   static Future fetchData() async {
     // // Kode untuk melakukan fetch data pada Future
-    // var data;
-    // // simulasi API request
-    // getDataUser().then((value) => data = value);
-    // await Future.delayed(Duration(seconds: 2));
-    // return data;
+    var data;
+    // simulasi API request
+    getDataUser().then((value) => data = value);
+    await Future.delayed(Duration(seconds: 2));
+    return data;
   }
 
   var dataPengguna = fetchData();
@@ -67,6 +69,9 @@ class _ProfilAPSPageState extends State<ProfilAPSPage> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data;
+                    var posisi = data['role'];
+                    var alamatTps = data['tps'];
+                    var info = '$posisi $alamatTps';
                     String noHp = data['no_hp'];
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +87,7 @@ class _ProfilAPSPageState extends State<ProfilAPSPage> {
                           ),
                         ),
                         Text(
-                          data['role'],
+                          info,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'InriaSans',
@@ -115,7 +120,7 @@ class _ProfilAPSPageState extends State<ProfilAPSPage> {
               Spacer(),
               ElevatedButton.icon(
                 onPressed: () {
-                  // popUpLogout(context);
+                  popUpLogout(context);
                 },
                 icon: Icon(
                   Icons.logout,

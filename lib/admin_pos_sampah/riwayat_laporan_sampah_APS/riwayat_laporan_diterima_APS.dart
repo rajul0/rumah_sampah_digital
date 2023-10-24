@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/component/card_riwayat_laporan_APS.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/proses/get_data_APS.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/proses/proses_unduh_laporan_aps.dart';
-import 'package:rumah_sampah_digital/proses/get_data.dart';
 
 class RiwayatLaporanDiterimaAPSPage extends StatefulWidget {
   const RiwayatLaporanDiterimaAPSPage({super.key});
@@ -16,7 +16,7 @@ class _RiwayatLaporanDiterimaAPSPageState
   Future<List<dynamic>> fetchData() async {
     // Mengambil data dari firebase menggunakan fungsi dibawah, datanya yang dikembalikan sudah dirapikan
 
-    return await getRiwayatLaporanPos('selesai');
+    return await getRiwayatLaporanSatuUser('selesai');
   }
 
   @override
@@ -35,7 +35,7 @@ class _RiwayatLaporanDiterimaAPSPageState
                 onPressed: () async {
                   final data = await getDataLaporanSelesaiAPS('selesai');
                   if (data != null) {
-                    generatePDF();
+                    generatePDF(data);
                   }
                 },
                 child: Text('Unduh PDF'),

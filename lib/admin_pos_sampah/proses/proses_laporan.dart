@@ -7,7 +7,7 @@ Future<void> hapusLaporan(idProduk) async {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   try {
-    await _db.collection('laporan').doc(idProduk).delete();
+    await _db.collection('laporan_pos').doc(idProduk).delete();
   } catch (e) {
     print('Error saat menghapus dokumen: $e');
   }

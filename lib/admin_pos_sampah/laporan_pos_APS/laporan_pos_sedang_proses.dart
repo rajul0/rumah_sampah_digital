@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/component/card_laporan_pos_sampah.dart';
-import 'package:rumah_sampah_digital/proses/get_data.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/proses/get_data_APS.dart';
 
 class LaporanPosSedangProsesAPSPage extends StatefulWidget {
   const LaporanPosSedangProsesAPSPage({super.key});
@@ -14,7 +14,7 @@ class _LaporanPosSedangProsesAPSPageState
     extends State<LaporanPosSedangProsesAPSPage> {
   Future<List<dynamic>> fetchData() async {
     // Mengambil data dari firebase menggunakan fungsi dibawah, datanya yang dikembalikan sudah dirapikan
-    return await getLaporanPos('proses');
+    return await getLaporanSatuUser('proses');
   }
 
   @override

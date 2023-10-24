@@ -30,12 +30,11 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
       );
       if (result != null) {
         setState(() {
-          _selectedFile = File(result!.path);
+          _selectedFile = File(result.path);
         });
       }
-      // Handle the captured image, e.g., display it or save it.
     } catch (e) {
-      print(e);
+      e;
     }
   }
 
@@ -50,7 +49,6 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
   var _tps;
   String _catatan = '';
   File? _selectedFile;
-  File? _imageCamera;
   bool _fileGambarDipilih = false;
 
   // Pesan berhasil upload berhasil atau tidak

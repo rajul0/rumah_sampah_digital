@@ -31,11 +31,9 @@ class _RiwayatDiterimaState extends State<RiwayatDiterima> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF008305)),
                 onPressed: () async {
-                  final data = await getDataLaporanSelesai('selesai');
-                  if (data != null) {
-                    final pdf = createPdfDocument(data);
-                    await savePdfToLocal(pdf);
-                    print('PDF berhasil dibuat dan disimpan.');
+                  final datas = await getDataLaporanSelesai('selesai');
+                  if (datas != null) {
+                    generatePDFABS(datas);
                   }
                 },
                 child: Text('Unduh PDF'),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,16 +29,30 @@ class DetailProdukMasyarakatPage extends StatefulWidget {
 
 class _DetailProdukMasyarakatPageState
     extends State<DetailProdukMasyarakatPage> {
-  void openWhatsApp(noHpAdmin) async {
-    final pesan = 'Halo, ini pesan dari aplikasi Flutter';
-
-    final url =
-        'whatsapp://send?phone=+62$noHpAdmin&text=${Uri.encodeComponent(pesan)}';
-
-    if (await canLaunch(url)) {
-      await launch(url);
+  void openWhatsApp(
+      {required BuildContext context, required int number}) async {
+    var pesan = 'Ini apa';
+    var whatsapp = number; //+92xx enter like this
+    var whatsappURlAndroid = "whatsapp://send?phone=whatsapp&text=$pesan";
+    var whatsappURLIos = "https://wa.me/$whatsapp?text=${Uri.tryParse(pesan)}";
+    if (Platform.isIOS) {
+      // for iOS phone only
+      if (await canLaunchUrl(Uri.parse(whatsappURLIos))) {
+        await launchUrl(Uri.parse(
+          whatsappURLIos,
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Whatsapp not installed")));
+      }
     } else {
-      print('Tidak dapat membuka WhatsApp');
+      // android , web
+      if (await canLaunchUrl(Uri.parse(whatsappURlAndroid))) {
+        await launchUrl(Uri.parse(whatsappURlAndroid));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Whatsapp not installed")));
+      }
     }
   }
 
@@ -131,7 +147,7 @@ class _DetailProdukMasyarakatPageState
             children: [
               ElevatedButton(
                 onPressed: () {
-                  openWhatsApp(widget.noHpAdmin);
+                  openWhatsApp(context: context, number: widget.noHpAdmin);
                 },
                 child: Text(
                   'Hubungi Penjual',

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-void ubahStatusLaporan(idLaporan, status, {petugas}) {
+void ubahStatusLaporan(idLaporan, status, {petugas, bsa, bso}) {
   DateTime date = DateTime.now();
   String formatedDate = date.toString();
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -28,6 +28,8 @@ void ubahStatusLaporan(idLaporan, status, {petugas}) {
     db.collection('laporan_pos').doc(idLaporan).update({
       'status': status,
       'tanggal_selesai': formatedDate,
+      'berat_sampah_organik': bso,
+      'berat_sampah_anorganik': bsa,
     });
   }
 }

@@ -56,7 +56,7 @@ class _LaporanPosSedangProsesPageState
                                       items[index]['alamat'],
                                       items[index]['catatan'],
                                       items[index]['tanggal_lapor'],
-                                      'assets/dummy_image/pos_sampah_a.png',
+                                      items[index]['imgPath'],
                                       items[index]['dijemput_oleh'],
                                     )));
                   }

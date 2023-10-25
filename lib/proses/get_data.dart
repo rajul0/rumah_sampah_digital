@@ -5,7 +5,6 @@ Future<dynamic> getDataUser() async {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user = _auth.currentUser;
   String? _userId = user?.uid;
-  print(_userId);
   var userData = {};
   // Mendapatkan referensi ke koleksi "users"
   CollectionReference users = FirebaseFirestore.instance.collection('akun');
@@ -14,14 +13,24 @@ Future<dynamic> getDataUser() async {
   QuerySnapshot querySnapshot =
       await users.where('uid', isEqualTo: _userId).get();
 
-  // Looping untuk mendapatkan data setiap dokumen pada querySnapshot
-  querySnapshot.docs.forEach((doc) {
-    userData['nama'] = doc['nama'];
-    userData['no_hp'] = doc['no_hp'];
-    userData['uid'] = doc['uid'];
-    userData['role'] = doc['role'];
-    userData['tps'] = doc['tps'];
-  });
+  if (user!.displayName == 'Admin Pos Sampah') {
+    // Looping untuk mendapatkan data setiap dokumen pada querySnapshot
+    querySnapshot.docs.forEach((doc) {
+      userData['nama'] = doc['nama'];
+      userData['no_hp'] = doc['no_hp'];
+      userData['uid'] = doc['uid'];
+      userData['role'] = doc['role'];
+      userData['tps'] = doc['tps'];
+    });
+  } else {
+    // Looping untuk mendapatkan data setiap dokumen pada querySnapshot
+    querySnapshot.docs.forEach((doc) {
+      userData['nama'] = doc['nama'];
+      userData['no_hp'] = doc['no_hp'];
+      userData['uid'] = doc['uid'];
+      userData['role'] = doc['role'];
+    });
+  }
   return userData;
 }
 

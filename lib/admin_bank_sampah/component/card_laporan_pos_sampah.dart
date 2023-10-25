@@ -102,7 +102,7 @@ Widget laporanPosMenungguCard(BuildContext context, String namaTps,
                       _showImagePopup(context, urlImage);
                     },
                     child: Container(
-                      width: 160.0,
+                      width: 120.0,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15.0),
                         child: Image.network(
@@ -195,14 +195,9 @@ Widget laporanPosDiprosesCard(BuildContext context, idLaporan, String namaTps,
     popUpBatalProsesLaporan(context);
   }
 
-  void yakinSelesaiLaporan() {
-    popUpKonfirmasiSelesaiLaporan(context, idLaporan);
-  }
-
   return Column(
     children: [
       SizedBox(
-        height: 332.0,
         width: double.infinity,
         child: Container(
           decoration: BoxDecoration(
@@ -247,13 +242,26 @@ Widget laporanPosDiprosesCard(BuildContext context, idLaporan, String namaTps,
                 SizedBox(
                   height: 15.0,
                 ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Text(
+                  'Catatan: $catatan',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                    width: 250.0,
+                    width: 130.0,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),
-                      child: Image.asset(
+                      child: Image.network(
                         image,
                         fit: BoxFit.cover,
                       ),
@@ -299,7 +307,7 @@ Widget laporanPosDiprosesCard(BuildContext context, idLaporan, String namaTps,
                       height: 33.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          yakinSelesaiLaporan();
+                          selesaiLaporan(context, idLaporan);
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

@@ -30,7 +30,7 @@ Future<void> tambahProdukJual(
     'jenis_akun': jenisAkun,
     'lokasi': 'Desa Puloet',
     'url_download': imagePath,
-  }).catchError((error) => print("Failed to add user: $error"));
+  }).catchError((error) => error);
 }
 
 Future uploadGambarBarang(
@@ -44,9 +44,7 @@ Future uploadGambarBarang(
     TaskSnapshot snapshot = await _storage.ref(imagePath).putFile(imageFile);
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
-  } on FirebaseException catch (e) {
-    print(e);
-  }
+  } on FirebaseException catch (e) {}
 }
 
 Future<void> editProdukJual(
@@ -81,7 +79,7 @@ Future<void> editProdukJual(
     'stok_produk': stokProduk,
     'jenis_akun': jenisAkun,
     'lokasi': 'Desa Puloet',
-  }).catchError((error) => print("Failed to add user: $error"));
+  }).catchError((error) => error);
 }
 
 Future<void> deleteProduk(idProduk) async {
@@ -89,8 +87,5 @@ Future<void> deleteProduk(idProduk) async {
 
   try {
     await _db.collection('produk').doc(idProduk).delete();
-    print('Dokumen berhasil dihapus');
-  } catch (e) {
-    print('Error saat menghapus dokumen: $e');
-  }
+  } catch (e) {}
 }

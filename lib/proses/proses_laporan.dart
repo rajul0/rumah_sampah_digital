@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rumah_sampah_digital/masyarakat/proses/get_data.dart';
 
 void ubahStatusLaporan(idLaporan, status, {petugas, bsa, bso}) {
   DateTime date = DateTime.now();
@@ -32,4 +33,16 @@ void ubahStatusLaporan(idLaporan, status, {petugas, bsa, bso}) {
       'berat_sampah_anorganik': bsa,
     });
   }
+}
+
+void updateTotalSampah(bsa, bso) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  var data = await getDataSampah();
+  var bsoSekarang = data?[0]['total_sampah_organik'];
+  var bsaSekarang = data?[0]['total_sampah_anorganik'];
+
+  db.collection('berat_sampah').doc('WZawIJ6Jfpi1gjD1fvkx').update({
+    'total_sampah_organik': bsoSekarang + bso,
+    'total_sampah_anorganik': bsaSekarang + bsa,
+  });
 }

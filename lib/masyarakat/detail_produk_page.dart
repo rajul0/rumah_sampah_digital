@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,25 +29,13 @@ class DetailProdukMasyarakatPage extends StatefulWidget {
 class _DetailProdukMasyarakatPageState
     extends State<DetailProdukMasyarakatPage> {
   void openWhatsApp(
-      {required BuildContext context, required int number}) async {
-    var pesan = 'Ini apa';
-    var whatsapp = number; //+92xx enter like this
-    var whatsappURlAndroid = "whatsapp://send?phone=whatsapp&text=$pesan";
-    var whatsappURLIos = "https://wa.me/$whatsapp?text=${Uri.tryParse(pesan)}";
-    if (Platform.isIOS) {
-      // for iOS phone only
-      if (await canLaunchUrl(Uri.parse(whatsappURLIos))) {
-        await launchUrl(Uri.parse(
-          whatsappURLIos,
-        ));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Whatsapp not installed")));
-      }
-    } else {
-      // android , web
-      if (await canLaunchUrl(Uri.parse(whatsappURlAndroid))) {
-        await launchUrl(Uri.parse(whatsappURlAndroid));
+      {required BuildContext context,
+      required int number,
+      required String message}) async {
+    String url = "https://api.whatsapp.com/send?phone=$number&text=$message";
+    if (Platform.isAndroid) {
+      if (await canLaunchUrl(Uri.parse(url))) {
+        await launchUrl(Uri.parse(url));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Whatsapp not installed")));
@@ -147,7 +134,10 @@ class _DetailProdukMasyarakatPageState
             children: [
               ElevatedButton(
                 onPressed: () {
-                  openWhatsApp(context: context, number: widget.noHpAdmin);
+                  openWhatsApp(
+                      context: context,
+                      number: widget.noHpAdmin,
+                      message: 'Hai apakah barang ini masih ada?');
                 },
                 child: Text(
                   'Hubungi Penjual',

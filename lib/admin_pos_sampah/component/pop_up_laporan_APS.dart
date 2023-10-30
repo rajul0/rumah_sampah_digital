@@ -171,7 +171,7 @@ Future popUpBerhasilBuatLaporan(context) {
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 10.0),
           children: <Widget>[
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Color(0xFF0095DA)),
+              style: ElevatedButton.styleFrom(primary: Color(0xFF008305)),
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,

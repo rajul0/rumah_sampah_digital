@@ -45,7 +45,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _fullName, _noHp, _password,
         role: 'Masyarakat');
     await Future.delayed(Duration(seconds: 2));
-    print(userCredential);
     if (userCredential != null &&
         userCredential.toString() !=
             '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
@@ -283,7 +282,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       } else if (value != _password) {
                         return 'Kata sandi tidak sama';
                       }
-                      print(value == _password);
                       return null;
                     },
                     keyboardType: TextInputType.number,

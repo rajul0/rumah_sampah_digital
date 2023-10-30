@@ -8,9 +8,7 @@ Future<void> hapusLaporan(idProduk) async {
 
   try {
     await _db.collection('laporan_pos').doc(idProduk).delete();
-  } catch (e) {
-    print('Error saat menghapus dokumen: $e');
-  }
+  } catch (e) {}
 }
 
 Future<void> buatLaporan(
@@ -41,7 +39,7 @@ Future<void> buatLaporan(
     'tanggal_lapor': formattedDateTime,
     'status': 'menunggu',
     'img_path': imagePath,
-  }).catchError((error) => print("$error"));
+  }).catchError((error) => error);
 }
 
 Future uploadGambarLaporan(jenisAkun, File imageFile, noTps) async {
@@ -61,7 +59,5 @@ Future uploadGambarLaporan(jenisAkun, File imageFile, noTps) async {
     TaskSnapshot snapshot = await _storage.ref(imagePath).putFile(imageFile);
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
-  } on FirebaseException catch (e) {
-    print(e);
-  }
+  } on FirebaseException catch (e) {}
 }

@@ -297,9 +297,12 @@ Future selesaiLaporan(context, idLaporan) {
   bool _errorMessage = false;
 
   void laporanSelesai() {
-    ubahStatusLaporan(idLaporan, 'selesai', bso: _BSO, bsa: _BSA);
-    popUpSelesaiLaporanBerhasil(context);
-    Navigator.pop(context);
+    try {
+      ubahStatusLaporan(idLaporan, 'selesai', bso: _BSO, bsa: _BSA);
+      updateTotalSampah(_BSA, _BSO);
+      popUpSelesaiLaporanBerhasil(context);
+      Navigator.pop(context);
+    } catch (e) {}
   }
 
   return showDialog(
@@ -321,7 +324,7 @@ Future selesaiLaporan(context, idLaporan) {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        labelText: 'Berat sampah Organik',
+                        labelText: 'Berat sampah Organik (kg)',
                         labelStyle: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 14.0,
@@ -352,7 +355,7 @@ Future selesaiLaporan(context, idLaporan) {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Masukkan Berat sampah Organik';
+                          return 'Masukkan Berat sampah Organik(kg)';
                         } else if (value.contains(',')) {
                           return 'Tidak boleh menggunakan "," (koma)';
                         } else if (_errorMessage) {
@@ -371,7 +374,7 @@ Future selesaiLaporan(context, idLaporan) {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        labelText: 'Berat Sampah Anorganik',
+                        labelText: 'Berat Sampah Anorganik(kg)',
                         labelStyle: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 14.0,
@@ -402,7 +405,7 @@ Future selesaiLaporan(context, idLaporan) {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Masukkan Berat Sampah Anorganik';
+                          return 'Masukkan Berat Sampah Anorganik(kg)';
                         } else if (value.contains(',')) {
                           return 'Tidak boleh menggunakan "," (koma)';
                         } else if (_errorMessage) {

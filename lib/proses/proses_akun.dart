@@ -21,7 +21,6 @@ Future<dynamic> registAccountWithPhoneNumber(namaLengkap, noHp, password,
       "nama": namaLengkap,
       "role": role,
     }).catchError((error) {
-      print("Failed to add user to firestore: $error");
       return null;
     });
     return userCredential;

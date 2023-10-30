@@ -18,7 +18,6 @@ Future<List<Map<String, dynamic>>?> getDataLaporanSelesai(status) async {
         .toList();
     return data;
   } catch (e) {
-    // print('Error saat mengambil data dari Firestore: $e');
     return null;
   }
 }

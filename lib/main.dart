@@ -31,7 +31,6 @@ Future<String?> checkRole() async {
   // hanya butuh sekali login
   User? user = FirebaseAuth.instance.currentUser;
   String? role = user?.displayName;
-  print(role);
   return role;
 }
 

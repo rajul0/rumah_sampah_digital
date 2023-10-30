@@ -27,3 +27,16 @@ Future<List> getAllProdukMasyarakat() async {
   });
   return hasil;
 }
+
+Future<List<Map<String, dynamic>>?> getDataSampah() async {
+  try {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('berat_sampah').get();
+    List<Map<String, dynamic>> data = querySnapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+    return data;
+  } catch (e) {
+    return null;
+  }
+}

@@ -53,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
 
-      print(role);
       if (role == loginSebagai) {
         if (role == 'Admin Bank Sampah') {
           await prefs.setString('role', role!);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/laporan_pos/laporan_pos.dart';
 import 'package:rumah_sampah_digital/admin_bank_sampah/riwayat_laporan/riwayat_laporan.dart';
 
+
 class HomePageABS extends StatefulWidget {
   const HomePageABS({super.key});
 
@@ -97,6 +98,7 @@ class _HomePageABSState extends State<HomePageABS> {
                   ),
                   GestureDetector(
                     onTap: () {
+                       
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -31,7 +31,7 @@ Future popUpBatalLaporanBerhasil(context) {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("OK"),
+              child: Text("OK",style: TextStyle(color: Colors.white),),
             ),
           ],
         );

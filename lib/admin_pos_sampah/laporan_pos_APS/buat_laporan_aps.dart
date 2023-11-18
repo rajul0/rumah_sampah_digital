@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/component/pop_up_laporan_APS.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class BuatLaporanAPSPage extends StatefulWidget {
   @override
@@ -12,6 +13,34 @@ class BuatLaporanAPSPage extends StatefulWidget {
 
 class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  var permissionGranted;
+  // fungsi untuk meminta akses file gambar
+  Future _requestStoragePermission() async {
+    if (await Permission.storage.request().isGranted) {
+        setState(() {
+        permissionGranted = true;
+         });
+    } else if (await Permission.storage.request().isPermanentlyDenied) {
+        return await openAppSettings();
+    
+    } else {
+        print(permissionGranted);
+        setState(() {
+        permissionGranted = false;
+      });
+    }
+  }
+
+ // fungsi untuk menampilkan pesan jika tidak diberikan izin akses storage
+  void _showPesanIzin(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Izin diperlukan untuk mengupload gambar'),
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
 
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -126,10 +155,15 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
                               fontWeight: FontWeight.bold,
                               fontFamily: 'InriaSans'),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
+                          // permissionGranted = await _requestStoragePermission();
+                          // if ( permissionGranted) {
                           _openFileExplorer();
                           _pesanGambar = false;
                           _fileGambarDipilih = true;
+                          // } else {
+                          //   _showPesanIzin(context);
+                          // }
                         },
                       ),
                 _fileGambarDipilih
@@ -284,5 +318,7 @@ class _BuatLaporanAPSPageState extends State<BuatLaporanAPSPage> {
         ),
       ),
     );
+    
   }
+  
 }

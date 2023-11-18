@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 Widget buildCardJualProduk(BuildContext context, String namaProduk, hargaProduk,
     String lokasi, image, VoidCallback onPressed) {
+      
   var currencyFormat = NumberFormat.currency(
     symbol: "Rp ",
     decimalDigits: 0,
@@ -38,7 +39,8 @@ Widget buildCardJualProduk(BuildContext context, String namaProduk, hargaProduk,
               child: Image.network(
                 image,
                 width: 111,
-              )),
+              )
+              ),
           Container(
               padding: EdgeInsets.only(
                 left: 10,
@@ -47,7 +49,7 @@ Widget buildCardJualProduk(BuildContext context, String namaProduk, hargaProduk,
                 bottom: 10,
               ),
               width: 160,
-              height: 60,
+              
               decoration: const BoxDecoration(),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

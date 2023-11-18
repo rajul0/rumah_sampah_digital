@@ -77,7 +77,7 @@ Future popUpKonfirmasiBatalLaporan(context, idLaporan) {
                     elevation: 6.0,
                     backgroundColor: Color(0xFFD90000),
                   ),
-                  child: Text('Yakin'),
+                  child: Text('Yakin',style: TextStyle(color: Colors.white),),
                 ),
               ],
             ),
@@ -149,7 +149,7 @@ Future popUpKonfirmasiBuatLaporan(context, userId, noTps, catatan, imageFile) {
                     elevation: 6.0,
                     backgroundColor: Color(0xFF008305),
                   ),
-                  child: Text('Yakin'),
+                  child: Text('Yakin',style: TextStyle(color: Colors.white),),
                 ),
               ],
             ),
@@ -179,7 +179,7 @@ Future popUpBerhasilBuatLaporan(context) {
                         builder: (BuildContext context) => LaporanPosAPSPage()),
                     (route) => false);
               },
-              child: Text("OK"),
+              child: Text("OK" ,style: TextStyle(color: Colors.white),),
             ),
           ],
         );

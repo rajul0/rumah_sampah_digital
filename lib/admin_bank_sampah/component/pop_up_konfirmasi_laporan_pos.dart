@@ -239,7 +239,7 @@ Future popUpKonfirmasiTolakLaporan(context, idLaporan) {
                     elevation: 6.0,
                     backgroundColor: Color(0xFFD90000),
                   ),
-                  child: Text('Yakin'),
+                  child: Text('Yakin',style: TextStyle(color: Colors.white),),
                 ),
               ],
             ),

@@ -32,7 +32,7 @@ class _DetailProdukMasyarakatPageState
       {required BuildContext context,
       required int number,
       required String message}) async {
-    String url = "https://api.whatsapp.com/send?phone=$number&text=$message";
+    String url = "https://api.whatsapp.com/send?phone=62$number&text=$message";
     if (Platform.isAndroid) {
       if (await canLaunchUrl(Uri.parse(url))) {
         await launchUrl(Uri.parse(url));

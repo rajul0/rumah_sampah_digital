@@ -208,7 +208,7 @@ Future popUpKonfirmasiSimpanEditProduk(
                     elevation: 6.0,
                     backgroundColor: Color(0xFF008305),
                   ),
-                  child: Text('Yakin'),
+                  child: Text('Yakin',style: TextStyle(color: Colors.white),),
                 ),
               ],
             ),
@@ -239,7 +239,7 @@ Future popUpBerhasilEditProduk(context) {
                         builder: (BuildContext context) => HomeNav()),
                     (route) => false);
               },
-              child: Text("OK"),
+              child: Text("OK",style: TextStyle(color: Colors.white),),
             ),
           ],
         );

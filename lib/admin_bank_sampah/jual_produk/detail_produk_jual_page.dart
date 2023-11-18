@@ -25,6 +25,28 @@ class DetailProdukPage extends StatefulWidget {
 }
 
 class _DetailProdukPageState extends State<DetailProdukPage> {
+  void _showImagePopup(BuildContext context, urlImage) {
+    // Fungsi untuk popup image
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Image.network(urlImage), // Gantilah dengan path gambar Anda
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Tutup',
+                style: TextStyle(color: Color(0xFF008305)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     var currencyFormat = NumberFormat.currency(
@@ -79,12 +101,26 @@ class _DetailProdukPageState extends State<DetailProdukPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              widget.gambarProduk,
-              height: 300,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+           
+            GestureDetector(
+                    onTap: () {
+                      _showImagePopup(context, widget.gambarProduk);
+                    },
+                    child: SizedBox(
+                      height: 300.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Center(
+                          child: Image.network(
+                            
+                            widget.gambarProduk,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
             Divider(
               color: Color(0xFF008305),
               thickness: 25,

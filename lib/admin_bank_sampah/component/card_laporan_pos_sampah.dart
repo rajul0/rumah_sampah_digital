@@ -148,7 +148,7 @@ Widget laporanPosMenungguCard(BuildContext context, String namaTps,
                       width: 20.0,
                     ),
                     SizedBox(
-                      width: 94.0,
+                      width: 100.0,
                       height: 33.0,
                       child: ElevatedButton(
                         onPressed: () {

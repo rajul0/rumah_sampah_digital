@@ -61,6 +61,7 @@ class _LaporanPosAPSPageState extends State<LaporanPosAPSPage>
           ),
         ),
         bottom: TabBar(
+          
           controller: _tabController, // Menggunakan TabController
           tabs: [
             Tab(text: 'Menunggu'),

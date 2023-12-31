@@ -47,7 +47,6 @@ Widget buildCardProduk(BuildContext context, String namaProduk, hargaProduk,
                 bottom: 10,
               ),
               width: 160,
-              height: 60,
               decoration: const BoxDecoration(),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

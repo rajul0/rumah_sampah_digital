@@ -10,7 +10,7 @@ class HomePageMasyarakat extends StatefulWidget {
 }
 
 class _HomePageMasyarakat extends State<HomePageMasyarakat> {
-  Future<List<dynamic>> fetchData() async {
+  Future fetchData() async {
     return await getAllProdukMasyarakat();
   }
 
@@ -145,7 +145,7 @@ class _HomePageMasyarakat extends State<HomePageMasyarakat> {
           Padding(
             padding: EdgeInsets.only(
                 top: 5.0, right: 19.0, bottom: 19.0, left: 19.0),
-            child: FutureBuilder<List<dynamic>>(
+            child: FutureBuilder(
               future: fetchData(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -174,25 +174,25 @@ class _HomePageMasyarakat extends State<HomePageMasyarakat> {
                               items.length,
                               (index) => buildCardProduk(
                                       context,
-                                      items[index]['namaProduk'],
-                                      items[index]['hargaProduk'],
+                                      items[index]['nama_produk'],
+                                      items[index]['harga_produk'],
                                       items[index]['lokasi'],
-                                      items[index]['urlImage'], () {
+                                      items[index]['url_download'], () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             DetailProdukMasyarakatPage(
-                                          idDokumen: items[index]['idDokumen'],
                                           namaProduk: items[index]
-                                              ['namaProduk'],
+                                              ['nama_produk'],
                                           gambarProduk: items[index]
-                                              ['urlImage'],
+                                              ['url_download'],
                                           hargaProduk: items[index]
-                                              ['hargaProduk'],
+                                              ['harga_produk'],
                                           deskripsiProduk: items[index]
                                               ['deskripsi'],
-                                          noHpAdmin: items[index]['noHpAdmin'],
+                                          noHpAdmin: items[index]
+                                              ['no_hp_admin'],
                                         ),
                                       ),
                                     );

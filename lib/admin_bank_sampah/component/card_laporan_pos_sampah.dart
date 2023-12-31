@@ -303,7 +303,6 @@ Widget laporanPosDiprosesCard(BuildContext context, idLaporan, String namaTps,
                       width: 20.0,
                     ),
                     SizedBox(
-                      width: 94.0,
                       height: 33.0,
                       child: ElevatedButton(
                         onPressed: () {

@@ -94,7 +94,10 @@ Future popUpEditProdukMasyarakat(context, idProduk) {
                         elevation: 6.0,
                         backgroundColor: Color(0xFFD90000),
                       ),
-                      child: Text('Hapus Produk'),
+                      child: Text(
+                        'Hapus Produk',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
@@ -208,7 +211,10 @@ Future popUpKonfirmasiSimpanEditProduk(
                     elevation: 6.0,
                     backgroundColor: Color(0xFF008305),
                   ),
-                  child: Text('Yakin',style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    'Yakin',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -239,7 +245,10 @@ Future popUpBerhasilEditProduk(context) {
                         builder: (BuildContext context) => HomeNav()),
                     (route) => false);
               },
-              child: Text("OK",style: TextStyle(color: Colors.white),),
+              child: Text(
+                "OK",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         );

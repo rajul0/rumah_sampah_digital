@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sampah_digital/admin_bank_sampah/component/card_laporan_pos_sampah.dart';
 import 'package:rumah_sampah_digital/admin_pos_sampah/proses/get_data_APS.dart';
+import 'package:rumah_sampah_digital/admin_pos_sampah/component/card_laporan_APS.dart';
 
 class LaporanPosSedangProsesAPSPage extends StatefulWidget {
   const LaporanPosSedangProsesAPSPage({super.key});
@@ -50,13 +50,13 @@ class _LaporanPosSedangProsesAPSPageState
                         : Column(
                             children: List.generate(
                                 items.length,
-                                (index) => laporanPosDiprosesCard(
+                                (index) => laporanPosDiprosesAPSCard(
                                       context,
                                       items[index]['id'],
                                       items[index]['alamat'],
                                       items[index]['catatan'],
                                       items[index]['tanggal_lapor'],
-                                      'assets/dummy_image/pos_sampah_a.png',
+                                      items[index]['imgPath'],
                                       items[index]['dijemput_oleh'],
                                     )));
                   }

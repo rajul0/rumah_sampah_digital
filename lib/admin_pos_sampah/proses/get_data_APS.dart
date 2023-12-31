@@ -60,6 +60,7 @@ Future<List> getLaporanSatuUser(status) async {
     data['tanggal_lapor'] = DateTime.parse(doc['tanggal_lapor']);
     data['id'] = doc.id;
 
+    print(data['imgPath']);
     if (data['status'] == 'proses') {
       data['dijemput_oleh'] = doc['dijemput_oleh'];
       data['tanggal_proses'] = doc['tanggal_proses'];

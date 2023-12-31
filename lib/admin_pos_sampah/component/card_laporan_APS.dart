@@ -166,10 +166,32 @@ Widget laporanPosDiprosesAPSCard(BuildContext context, idLaporan,
     // popUpKonfirmasiSelesaiLaporan(context, idLaporan);
   }
 
+  void _showImagePopup(BuildContext context, urlImage) {
+    // Fungsi untuk popup image
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Image.network(urlImage), // Gantilah dengan path gambar Anda
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Tutup',
+                style: TextStyle(color: Color(0xFF008305)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   return Column(
     children: [
       SizedBox(
-        height: 332.0,
         width: double.infinity,
         child: Container(
           decoration: BoxDecoration(
@@ -216,13 +238,18 @@ Widget laporanPosDiprosesAPSCard(BuildContext context, idLaporan,
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Container(
-                    width: 250.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0),
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
+                  child: GestureDetector(
+                    onTap: () {
+                      _showImagePopup(context, image);
+                    },
+                    child: Container(
+                      width: 100,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -230,64 +257,6 @@ Widget laporanPosDiprosesAPSCard(BuildContext context, idLaporan,
                 SizedBox(
                   height: 20.0,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 144.0,
-                      height: 33.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          batalProses();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          elevation: 0,
-                          backgroundColor: Color(0xFFD90000),
-                        ),
-                        child: Text(
-                          'Batal Proses',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    SizedBox(
-                      width: 94.0,
-                      height: 33.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          yakinSelesaiLaporan();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          elevation: 0,
-                          backgroundColor: Color(0xFF008305),
-                        ),
-                        child: Text(
-                          'Selesai',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
           ),

@@ -36,7 +36,10 @@ class _RiwayatDiterimaState extends State<RiwayatDiterima> {
                     generatePDFABS(datas);
                   }
                 },
-                child: Text('Unduh PDF'),
+                child: Text(
+                  'Unduh PDF',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               FutureBuilder<List<dynamic>>(
                 future: fetchData(),

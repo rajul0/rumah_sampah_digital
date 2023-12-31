@@ -8,12 +8,10 @@ class DetailProdukMasyarakatPage extends StatefulWidget {
   final String gambarProduk;
   final hargaProduk;
   final String deskripsiProduk;
-  final String idDokumen;
   final int noHpAdmin;
 
   const DetailProdukMasyarakatPage({
     Key? key,
-    required this.idDokumen,
     required this.namaProduk,
     required this.gambarProduk,
     required this.hargaProduk,
